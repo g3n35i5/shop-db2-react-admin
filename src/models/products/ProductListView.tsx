@@ -10,7 +10,7 @@ import {
     SingleFieldList,
     ChipField,
 } from 'react-admin';
-import {CurrencyInCentsField} from "../../shared/fields/currency_in_cents";
+import {CurrencyInCentsField} from "../../shared/fields/CurrencyInCents";
 
 
 export const ProductList = (props: any) => (

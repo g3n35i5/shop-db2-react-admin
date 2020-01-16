@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Datagrid, List, TextField } from 'react-admin';
-import { CurrencyInCentsField } from '../../shared/fields/currency_in_cents';
+import { CurrencyInCentsField } from '../../shared/fields/CurrencyInCents';
 
 
 export const RankList = (props: any) => (
