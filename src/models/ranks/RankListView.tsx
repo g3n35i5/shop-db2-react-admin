@@ -8,7 +8,7 @@ export const RankList = (props: any) => (
         <Datagrid>
             <TextField source="id"/>
             <TextField source="name"/>
-            <CurrencyInCentsField source="debt_limit" currency="EUR"/>
+            <CurrencyInCentsField source="debt_limit"/>
         </Datagrid>
     </List>
 );
