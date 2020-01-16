@@ -1,6 +1,6 @@
 import React from 'react';
 import {Datagrid, List, TextField} from 'react-admin';
-import {string, any, number} from "prop-types";
+import {string, number} from "prop-types";
 
 const rank = {
     id: number,

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Admin, Resource} from 'react-admin';
-import {UserList} from './interfaces/users';
-import {RankList} from './interfaces/ranks';
+import { UserList } from './models/users';
+import { RankList } from './models/ranks';
 import {createMuiTheme} from '@material-ui/core/styles';
 import simpleRestProvider from 'ra-data-simple-rest';
 
