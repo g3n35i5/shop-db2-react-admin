@@ -1,9 +1,22 @@
-// in src/App.js
 import React from 'react';
-import { Admin, Resource } from 'react-admin';
-import jsonServerProvider from 'ra-data-json-server';
+import {Admin, Resource} from 'react-admin';
+import {UserList} from './interfaces/users';
+import {RankList} from './interfaces/ranks';
+import {createMuiTheme} from '@material-ui/core/styles';
+import simpleRestProvider from 'ra-data-simple-rest';
 
-const dataProvider = jsonServerProvider('http://jsonplaceholder.typicode.com');
-const App = () => <Admin dataProvider={dataProvider} />;
+const theme = createMuiTheme({
+    palette: {
+        type: 'dark'
+    },
+});
+
+const dataProvider = simpleRestProvider('');
+const App = () => (
+    <Admin theme={theme} dataProvider={dataProvider}>
+        <Resource name="users" list={UserList}/>
+        <Resource name="ranks" list={RankList}/>
+    </Admin>
+);
 
 export default App;
