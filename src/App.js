@@ -1,7 +1,7 @@
 import React from 'react';
 import { Admin, Resource } from 'react-admin';
-import { UserList } from './models/users';
-import { RankList } from './models/ranks';
+import { UserList } from './models/users/users';
+import { RankList } from './models/ranks/ranks';
 import { AccountGroup, AccountBadgeHorizontal } from 'mdi-material-ui'
 import {createMuiTheme} from '@material-ui/core/styles';
 import simpleRestProvider from 'ra-data-simple-rest';
