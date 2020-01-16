@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Admin, Resource } from 'react-admin';
 import { UserList } from './models/users/users';
 import { RankList } from './models/ranks/ranks';

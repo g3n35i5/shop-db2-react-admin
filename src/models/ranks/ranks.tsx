@@ -1,9 +1,9 @@
-import React from 'react';
+import * as React from 'react';
 import { Datagrid, List, TextField } from 'react-admin';
 import { CurrencyInCentsField } from '../../shared/fields/currency_in_cents';
 
 
-export const RankList = (props) => (
+export const RankList = (props: any) => (
     <List {...props}>
         <Datagrid>
             <TextField source="id"/>

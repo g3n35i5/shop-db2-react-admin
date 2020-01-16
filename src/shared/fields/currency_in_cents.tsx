@@ -1,13 +1,12 @@
-import {string, any} from "prop-types";
 import React from "react";
 
-CurrencyInCentsField.propTypes = {
+type CurrencyInCentsProps = {
     source: string,
-    record: any,
+    record?: any,  //TODO This works but i dont know why
     currency: string
-};
+}
 
-export function CurrencyInCentsField (props) {
+export function CurrencyInCentsField (props: CurrencyInCentsProps) {
     // Divide the amount in cents by 100 to get the currency amount in EUR
     const cents = props.record[props.source] / 100;
     return (
