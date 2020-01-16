@@ -1,5 +1,5 @@
 import React from 'react';
-import {Admin, Resource} from 'react-admin';
+import { Admin, Resource } from 'react-admin';
 import { UserList } from './models/users';
 import { RankList } from './models/ranks';
 import {createMuiTheme} from '@material-ui/core/styles';
