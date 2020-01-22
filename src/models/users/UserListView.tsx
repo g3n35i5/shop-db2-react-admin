@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-import {ChipField, Datagrid, Filter, List, ReferenceField, TextField, TextInput} from 'react-admin';
+import {ChipField, Datagrid, Filter, List, ReferenceField, TextField, BooleanField, TextInput, EditButton} from 'react-admin';
 
 const UserListFilter = (props: any) => (
     <Filter {...props}>
         <TextInput label="Firstname" source="firstname"/>
-        <TextInput label="Lirstname" source="lastname"/>
+        <TextInput label="Lastname" source="lastname"/>
     </Filter>
 );
 
@@ -13,6 +13,7 @@ export const UserList = (props: any) => (
     <List
         {...props}
         filters={<UserListFilter/>}
+        bulkActionButtons={false}
     >
         <Datagrid>
             <TextField source="id"/>
@@ -21,6 +22,7 @@ export const UserList = (props: any) => (
             <ReferenceField label="Rank" source="rank_id" reference="ranks" sortable={false}>
                 <ChipField source="name"/>
             </ReferenceField>
+            <EditButton/>
         </Datagrid>
     </List>
 );
