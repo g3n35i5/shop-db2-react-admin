@@ -1,0 +1,10 @@
+{
+  "env": {
+    "production": {
+      "plugins": ["transform-dev-warning"]
+    },
+    "development": {
+      "plugins": ["transform-dev-warning"]
+    }
+  }
+}
