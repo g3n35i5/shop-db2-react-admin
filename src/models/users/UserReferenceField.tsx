@@ -30,7 +30,7 @@ const UserWithImageField = props => {
 
 const UserReferenceField = props => {
     return (
-        <ReferenceField source="user_id" reference="users" {...props}>
+        <ReferenceField source={props.source} reference="users" {...props}>
             <UserWithImageField/>
         </ReferenceField>
     )

@@ -10,7 +10,7 @@ export const TagList = (props: any) => (
         <Datagrid>
             <TextField source="id"/>
             <TextField source="name"/>
-            <UserReferenceField/>
+            <UserReferenceField source="created_by"/>
         </Datagrid>
     </List>
 );

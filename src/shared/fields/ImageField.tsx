@@ -9,7 +9,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ImageField = ({alt, src}) => {
-    console.log(src);
     const classes = useStyles();
     if (src !== null) {
         return <Avatar alt={alt} src={src} className={classes.avatar}/>;
