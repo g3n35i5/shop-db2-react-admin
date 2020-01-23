@@ -52,6 +52,22 @@ const customDataProvider = {
             };
         });
     },
+    update: (resource, params) => {
+        // Only submit changed values
+        let params_to_patch = {};
+        for (let [key, value] of Object.entries(params.data)) {
+            if (params.previousData[key] !== value) { //only works for primitives
+                params_to_patch[key] = value;
+            }
+        }
+
+        return httpClient(`${apiUrl}/${resource}/${params.id}`, {
+            method: 'PUT',
+            body: JSON.stringify(params_to_patch),
+        }).then(({json}) => ({data: json}))
+    }
+
+
 };
 
 export default customDataProvider;
