@@ -14,8 +14,8 @@ export const PurchaseList = (props: any) => (
             <TextField source="id"/>
             <UserReferenceField/>
             <DateField source="timestamp"/>
-            <NumberField source="amount"/>
             <ProductReferenceField/>
+            <NumberField source="amount"/>
             <CurrencyInCentsField source="productprice"/>
             <CurrencyInCentsField source="price"/>
         </Datagrid>
