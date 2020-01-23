@@ -18,8 +18,8 @@ export const UserCreate = (props) => (
         <SimpleForm validate={validateUserCreation}>
             <TextInput source="firstname" label="Firstname" />
             <TextInput source="lastname" label="Lastname" />
-            <TextInput source="password" label="Password" />
-            <TextInput source="password_repeat" label="Password repeat" />
+            <PasswordInput source="password" label="Password" />
+            <PasswordInput source="password_repeat" label="Password repeat" />
         </SimpleForm>
     </Create>
 );
