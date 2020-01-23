@@ -1,4 +1,4 @@
-import { stringify } from 'query-string';
+import {stringify} from 'query-string';
 import simpleRestProvider from 'ra-data-simple-rest';
 import {fetchUtils} from "react-admin";
 
@@ -8,7 +8,7 @@ const apiUrl: string = '';
 // Custom httpClient with authorization
 const httpClient = (url, options: any = {}) => {
     if (!options.headers) {
-        options.headers = new Headers({ Accept: 'application/json' });
+        options.headers = new Headers({Accept: 'application/json'});
     }
     const token = localStorage.getItem('token');
     options.headers.set('token', token);
@@ -16,7 +16,7 @@ const httpClient = (url, options: any = {}) => {
 };
 
 // Base data provider
-const dataProvider = simpleRestProvider(apiUrl);
+const dataProvider = simpleRestProvider(apiUrl, httpClient);
 
 // Custom data provider
 const customDataProvider = {
@@ -34,7 +34,7 @@ const customDataProvider = {
 
         const url = `${apiUrl}/${resource}?${stringify(query)}`;
 
-        return httpClient(url).then(({ headers, json }) => {
+        return httpClient(url).then(({headers, json}) => {
             if (!headers.has('content-range')) {
                 throw new Error(
                     'The Content-Range header is missing in the HTTP Response. The simple REST data provider expects responses for lists of resources to contain this header with the total number of results to build the pagination. If you are using CORS, did you declare Content-Range in the Access-Control-Expose-Headers header?'
