@@ -11,10 +11,13 @@ import { RankList } from './models/ranks/RankListView';
 import { AccountGroup, AccountBadgeHorizontal, FoodApple, Tag } from 'mdi-material-ui'
 import {createMuiTheme} from '@material-ui/core/styles';
 import customDataProvider from './DataProvider';
+import {indigo, lime} from '@material-ui/core/colors';
 
 const theme = createMuiTheme({
     palette: {
-        type: 'dark'
+        type: 'dark',
+        primary: lime,
+        secondary: indigo
     },
 });
 
