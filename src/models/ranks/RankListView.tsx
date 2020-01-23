@@ -1,10 +1,12 @@
 import * as React from 'react';
-import { Datagrid, List, TextField } from 'react-admin';
-import { CurrencyInCentsField } from '../../shared/fields/CurrencyInCents';
+import {Datagrid, List, TextField} from 'react-admin';
+import {CurrencyInCentsField} from '../../shared/fields/CurrencyInCents';
 
 
 export const RankList = (props: any) => (
-    <List {...props}>
+    <List
+        {...props}
+        bulkActionButtons={false}>
         <Datagrid>
             <TextField source="id"/>
             <TextField source="name"/>

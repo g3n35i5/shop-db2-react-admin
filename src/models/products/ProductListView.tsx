@@ -14,7 +14,9 @@ import {CurrencyInCentsField} from "../../shared/fields/CurrencyInCents";
 
 
 export const ProductList = (props: any) => (
-    <List {...props}>
+    <List
+        {...props}
+        bulkActionButtons={false}>
         <Datagrid>
             <NumberField source="id" />
             <TextField source="name" />
