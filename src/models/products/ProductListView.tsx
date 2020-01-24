@@ -11,6 +11,7 @@ import {
     ChipField,
 } from 'react-admin';
 import {CurrencyInCentsField} from "../../shared/fields/CurrencyInCents";
+import DateFieldOptions from "../../shared/options/DateFieldOptions";
 
 
 export const ProductList = (props: any) => (
@@ -21,7 +22,7 @@ export const ProductList = (props: any) => (
             <NumberField source="id" />
             <TextField source="name" />
             <CurrencyInCentsField source="price"/>
-            <DateField source="creation_date" />
+            <DateField source="creation_date" options={DateFieldOptions}/>
             <TextField source="barcode" />
             <BooleanField source="active" />
             <BooleanField source="countable" />
