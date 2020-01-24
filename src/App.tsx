@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Admin, Resource } from 'react-admin';
 import authProvider from './authentication/AuthProvider';
 import LogoutButton from "./authentication/LogoutButton";
+import LoginPage from "./authentication/LoginPage";
 import { UserList } from './models/users/UserListView';
 import { UserCreate } from './models/users/UserCreate';
 import { UserEdit } from './models/users/UserEdit';
@@ -28,6 +29,7 @@ const App = () => (
         theme={theme}
         dataProvider={customDataProvider}
         authProvider={authProvider}
+        loginPage={LoginPage}
         logoutButton={LogoutButton}>
         {/*Resources*/}
         <Resource name="users" list={UserList} create={UserCreate} edit={UserEdit} icon={AccountGroup}/>
