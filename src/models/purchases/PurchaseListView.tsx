@@ -50,6 +50,7 @@ export const PurchaseList = (props: any) => (
     <List
         {...props}
         bulkActionButtons={false}
+        sort={{ field: 'id', order: 'DESC' }}
     >
         <Datagrid rowStyle={purchaseRowStyle}>
             <TextField source="id"/>
