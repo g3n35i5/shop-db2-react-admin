@@ -1,20 +1,21 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {useDataProvider, useVersion} from 'react-admin';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 import {
     NumberOfProductsCard,
     NumberOfPurchasesCard,
     NumberOfUsersCard,
     PendingVerificationsCard
 } from "./DashboardValueCard";
-import Grid from '@material-ui/core/Grid';
+
+import {DashboardPurchasesChart} from "./DashboardPurchaseChart";
 
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            flexGrow: 1,
-            paddingTop: '1em'
+            flexGrow: 1
         },
         paper: {
             padding: theme.spacing(2),
@@ -47,7 +48,8 @@ const Dashboard = () => {
 
         setState(state => ({
             ...state,
-            numberOfPurchases: allPurchases.length
+            numberOfPurchases: allPurchases.length,
+            allPurchases: allPurchases
 
         }));
     }, [dataProvider]);
@@ -85,6 +87,9 @@ const Dashboard = () => {
                 </Grid>
                 <Grid item xl={3} md={6} sm={12}>
                     <NumberOfPurchasesCard value={state.numberOfPurchases}/>
+                </Grid>
+                <Grid item xl={12} md={12}>
+                    <DashboardPurchasesChart purchases={state.allPurchases}/>
                 </Grid>
             </Grid>
         </div>

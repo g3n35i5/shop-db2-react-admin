@@ -1,12 +1,9 @@
 import React from 'react';
-import {Button, Card, CardActions} from '@material-ui/core';
 import {Skeleton} from '@material-ui/lab';
 import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import { Link } from 'react-router-dom';
-
-import CardIcon from './CardIcon';
 import {AccountGroup, Cart, CheckDecagram, FoodApple} from "mdi-material-ui";
+import DashboardCard from './DashboardCard';
 
 const useStyles = makeStyles({
     main: {
@@ -32,33 +29,28 @@ const useStyles = makeStyles({
     }
 });
 
-const DashboardValueCard = (props) => {
+const ValueCardContent = ({title, value}) => {
     const classes = useStyles();
     return (
-        <div className={classes.main}>
-            <CardIcon Icon={props.icon} bgColor={props.color}/>
-            <Card className={classes.card}>
-                <div className={classes.title}>
-                    <Typography color="textSecondary">
-                        {props.title}
-                    </Typography>
-                </div>
-                <div className={classes.value}>
-                    <Typography variant="h5" component="h2">
-                        {
-                            props.value ?
-                                props.value :
-                                <Skeleton className={classes.skeleton} variant="text"/>}
-                    </Typography>
-                </div>
-                <CardActions>
-                    <Button color="primary" size="small" component={Link} to={{
-                        pathname: props.path,
-                        search: props.search,
-                    }}>Learn More</Button>
-                </CardActions>
-            </Card>
+        <div>
+            <div className={classes.title}>
+                <Typography color="textSecondary"> {title} </Typography>
+            </div>
+            <div className={classes.value}>
+                <Typography variant="h5" component="h2">
+                    {value ? value : <Skeleton className={classes.skeleton} variant="text"/>}
+                </Typography>
+            </div>
         </div>
+    )
+};
+
+const DashboardValueCard = (props) => {
+    const content = ValueCardContent({title: props.title, value: props.value});
+    let ButtonText = props.buttonText ? props.buttonText : 'Show';
+    return (
+        <DashboardCard Icon={props.icon} IconColor={props.color} Content={content} ButtonLink={props.path}
+                       ButtonParams={props.search} ButtonText={ButtonText}/>
     );
 };
 
