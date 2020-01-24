@@ -14,11 +14,16 @@ import {CurrencyInCentsField} from "../../shared/fields/CurrencyInCents";
 import DateFieldOptions from "../../shared/options/DateFieldOptions";
 
 
+// Mark all products that are inactive with a darker row background
+const productRowStyle = (record, index) => ({
+    backgroundColor: record.active ? '' : '#212121',
+});
+
 export const ProductList = (props: any) => (
     <List
         {...props}
         bulkActionButtons={false}>
-        <Datagrid>
+        <Datagrid rowStyle={productRowStyle}>
             <NumberField source="id" />
             <TextField source="name" />
             <CurrencyInCentsField source="price"/>

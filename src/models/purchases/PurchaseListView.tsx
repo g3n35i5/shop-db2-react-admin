@@ -4,6 +4,10 @@ import UserReferenceField from "../users/UserReferenceField";
 import ProductReferenceField from "../products/ProductReferenceField";
 import DateFieldOptions from "../../shared/options/DateFieldOptions";
 import {CurrencyInCentsField} from '../../shared/fields/CurrencyInCents';
+// Mark all revoked purchases with a darker row background
+const purchaseRowStyle = (record, index) => ({
+    backgroundColor: record.revoked ? '#212121' : '',
+});
 
 // List view for the purchases
 export const PurchaseList = (props: any) => (
@@ -11,7 +15,7 @@ export const PurchaseList = (props: any) => (
         {...props}
         bulkActionButtons={false}
     >
-        <Datagrid>
+        <Datagrid rowStyle={purchaseRowStyle}>
             <TextField source="id"/>
             <UserReferenceField/>
             <DateField source="timestamp" options={DateFieldOptions}/>
