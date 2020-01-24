@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Admin, Resource } from 'react-admin';
+import Dashboard from "./dashboard/Dashboard";
 import authProvider from './authentication/AuthProvider';
 import LogoutButton from "./authentication/LogoutButton";
 import LoginPage from "./authentication/LoginPage";
@@ -27,6 +28,7 @@ const theme = createMuiTheme({
 const App = () => (
     <Admin
         theme={theme}
+        dashboard={Dashboard}
         dataProvider={customDataProvider}
         authProvider={authProvider}
         loginPage={LoginPage}
