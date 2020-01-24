@@ -4,6 +4,7 @@
   "proxy": "http://localhost:5000",
   "private": true,
   "dependencies": {
+    "@material-ui/lab": "^4.0.0-alpha.37",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
