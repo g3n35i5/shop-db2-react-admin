@@ -38,7 +38,7 @@ const ValueCardContent = ({title, value}) => {
             </div>
             <div className={classes.value}>
                 <Typography variant="h5" component="h2">
-                    {value ? value : <Skeleton className={classes.skeleton} variant="text"/>}
+                    {typeof value === "number" ? value : <Skeleton className={classes.skeleton} variant="text"/>}
                 </Typography>
             </div>
         </div>
