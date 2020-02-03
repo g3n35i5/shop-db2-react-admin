@@ -14,6 +14,7 @@
     "@types/react-dom": "^16.9.4",
     "jwt-decode": "^2.2.0",
     "mdi-material-ui": "^6.10.0",
+    "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "ra-data-json-server": "^3.1.2",
     "ra-data-simple-rest": "^3.1.0",
@@ -22,6 +23,7 @@
     "react-admin-date-inputs": "^1.1.4",
     "react-countdown": "^2.2.0",
     "react-dom": "^16.12.0",
+    "react-moment": "^0.9.7",
     "react-scripts": "3.3.0",
     "recharts": "^2.0.0-beta.1",
     "typescript": "^3.7.4"
