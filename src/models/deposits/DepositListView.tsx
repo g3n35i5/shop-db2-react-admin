@@ -1,10 +1,10 @@
 import * as React from "react";
-import {Datagrid, DateField, List, NumberField, TextField} from "react-admin";
+import {Datagrid, List, NumberField, TextField} from "react-admin";
 import {Redo, Undo} from 'mdi-material-ui'
 import UserReferenceField from "../users/UserReferenceField";
-import DateFieldOptions from "../../shared/options/DateFieldOptions";
 import {CurrencyInCentsField} from '../../shared/fields/CurrencyInCents';
 import { useUpdate, useNotify, useRefresh, Button } from 'react-admin';
+import TimestampField from "../../shared/fields/TimestampField";
 
 // This component returns a button which toggles the deposit's revoke
 const ToggleDepositRevokeButton = ({...props}) => {
@@ -53,7 +53,7 @@ export const DepositList = (props: any) => (
     >
         <Datagrid rowStyle={depositRowStyle}>
             <NumberField source="id"/>
-            <DateField source="timestamp" options={DateFieldOptions}/>
+            <TimestampField source="creation_date"/>
             <UserReferenceField source="admin_id"/>
             <UserReferenceField source="user_id"/>
             <CurrencyInCentsField source="amount"/>

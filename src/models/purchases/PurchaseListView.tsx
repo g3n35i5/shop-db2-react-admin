@@ -1,11 +1,11 @@
 import * as React from "react";
-import {Datagrid, DateField, List, NumberField, TextField} from "react-admin";
+import {Datagrid, List, NumberField, TextField} from "react-admin";
 import {Redo, Undo} from 'mdi-material-ui'
 import UserReferenceField from "../users/UserReferenceField";
 import ProductReferenceField from "../products/ProductReferenceField";
-import DateFieldOptions from "../../shared/options/DateFieldOptions";
 import {CurrencyInCentsField} from '../../shared/fields/CurrencyInCents';
 import { useUpdate, useNotify, useRefresh, Button } from 'react-admin';
+import TimestampField from "../../shared/fields/TimestampField";
 
 
 const TogglePurchaseRevokeButton = ({...props}) => {
@@ -55,7 +55,7 @@ export const PurchaseList = (props: any) => (
         <Datagrid rowStyle={purchaseRowStyle}>
             <NumberField source="id"/>
             <UserReferenceField/>
-            <DateField source="timestamp" options={DateFieldOptions}/>
+            <TimestampField source="creation_date"/>
             <ProductReferenceField/>
             <NumberField source="amount"/>
             <CurrencyInCentsField source="productprice"/>

@@ -3,7 +3,6 @@ import {
     List,
     Datagrid,
     TextField,
-    DateField,
     NumberField,
     BooleanField,
     ReferenceArrayField,
@@ -11,7 +10,7 @@ import {
     ChipField,
 } from 'react-admin';
 import {CurrencyInCentsField} from "../../shared/fields/CurrencyInCents";
-import DateFieldOptions from "../../shared/options/DateFieldOptions";
+import TimestampField from "../../shared/fields/TimestampField";
 
 
 // Mark all products that are inactive with a darker row background
@@ -27,7 +26,7 @@ export const ProductList = (props: any) => (
             <NumberField source="id" />
             <TextField source="name" />
             <CurrencyInCentsField source="price"/>
-            <DateField source="creation_date" options={DateFieldOptions}/>
+            <TimestampField source="creation_date"/>
             <TextField source="barcode" />
             <BooleanField source="active" />
             <BooleanField source="countable" />
