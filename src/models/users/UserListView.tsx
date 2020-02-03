@@ -12,6 +12,7 @@ import {
     BooleanInput,
     SelectInput,
     TextField,
+    NumberField,
     TextInput
 } from 'react-admin';
 
@@ -44,7 +45,7 @@ export const UserList = (props: any) => (
         bulkActionButtons={false}
     >
         <Datagrid>
-            <TextField source="id"/>
+            <NumberField source="id"/>
             <TextField source="firstname"/>
             <TextField source="lastname"/>
             <ReferenceField label="Rank" source="rank_id" reference="ranks" sortable={false}>

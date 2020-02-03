@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Datagrid, List, TextField} from 'react-admin';
+import {Datagrid, List, TextField, NumberField} from 'react-admin';
 import UserReferenceField from "../users/UserReferenceField";
 
 
@@ -8,7 +8,7 @@ export const TagList = (props: any) => (
         {...props}
         bulkActionButtons={false}>
         <Datagrid>
-            <TextField source="id"/>
+            <NumberField source="id"/>
             <TextField source="name"/>
             <UserReferenceField source="created_by"/>
         </Datagrid>

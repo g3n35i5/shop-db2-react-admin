@@ -53,7 +53,7 @@ export const PurchaseList = (props: any) => (
         sort={{ field: 'id', order: 'DESC' }}
     >
         <Datagrid rowStyle={purchaseRowStyle}>
-            <TextField source="id"/>
+            <NumberField source="id"/>
             <UserReferenceField/>
             <DateField source="timestamp" options={DateFieldOptions}/>
             <ProductReferenceField/>
