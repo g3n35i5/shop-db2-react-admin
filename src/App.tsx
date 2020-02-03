@@ -15,6 +15,8 @@ import { AccountGroup, AccountBadgeHorizontal, FoodApple, Tag, Cart } from 'mdi-
 import {createMuiTheme} from '@material-ui/core/styles';
 import customDataProvider from './DataProvider';
 import {deepPurple, lime} from '@material-ui/core/colors';
+import {DepositList} from "./models/deposits/DepositListView";
+import {DepositCreate} from "./models/deposits/DepositCreate";
 
 const theme = createMuiTheme({
     palette: {
@@ -37,6 +39,7 @@ const App = () => (
         <Resource name="users" list={UserList} create={UserCreate} edit={UserEdit} icon={AccountGroup}/>
         <Resource name="purchases" list={PurchaseList} icon={Cart}/>
         <Resource name="products" list={ProductList} icon={FoodApple}/>
+        <Resource name="deposits" list={DepositList} create={DepositCreate} icon={CurrencyUsd}/>
         <Resource name="tags" list={TagList} icon={Tag}/>
         <Resource name="ranks" list={RankList} icon={AccountBadgeHorizontal}/>
     </Admin>

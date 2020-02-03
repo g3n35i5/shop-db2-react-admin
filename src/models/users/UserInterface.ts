@@ -9,3 +9,11 @@ export interface User extends Record {
     creation_date: string;
     rank_id: string;
 }
+
+export function getFullNameOfUser(user: User): string {
+    if (user.firstname) {
+        return `${user.firstname} ${user.lastname}`;
+    } else {
+        return `${user.lastname}`;
+    }
+}
