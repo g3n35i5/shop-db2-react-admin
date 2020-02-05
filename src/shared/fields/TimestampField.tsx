@@ -1,6 +1,5 @@
 import React, {FC}  from 'react';
 import Moment from 'react-moment';
-import 'moment-timezone';
 import {FieldProps} from "../interfaces/FieldProps";
 
 
