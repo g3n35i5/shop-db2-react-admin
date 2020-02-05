@@ -9,7 +9,10 @@ import { UserCreate } from './models/users/UserCreate';
 import { UserEdit } from './models/users/UserEdit';
 import { PurchaseList } from './models/purchases/PurchaseListView';
 import { ProductList } from './models/products/ProductListView';
+import { ProductEdit } from "./models/products/ProductEdit";
 import { TagList } from './models/tags/TagListView';
+import { TagCreate } from './models/tags/TagCreate';
+import { TagEdit } from './models/tags/TagEdit';
 import { RankList } from './models/ranks/RankListView';
 import { AccountGroup, AccountBadgeHorizontal, FoodApple, Tag, Cart } from 'mdi-material-ui'
 import {createMuiTheme} from '@material-ui/core/styles';
@@ -38,9 +41,9 @@ const App = () => (
         {/*Resources*/}
         <Resource name="users" list={UserList} create={UserCreate} edit={UserEdit} icon={AccountGroup}/>
         <Resource name="purchases" list={PurchaseList} icon={Cart}/>
-        <Resource name="products" list={ProductList} icon={FoodApple}/>
+        <Resource name="products" list={ProductList} edit={ProductEdit} icon={FoodApple}/>
         <Resource name="deposits" list={DepositList} create={DepositCreate} icon={CurrencyUsd}/>
-        <Resource name="tags" list={TagList} icon={Tag}/>
+        <Resource name="tags" list={TagList} create={TagCreate} edit={TagEdit} icon={Tag}/>
         <Resource name="ranks" list={RankList} icon={AccountBadgeHorizontal}/>
     </Admin>
 );
