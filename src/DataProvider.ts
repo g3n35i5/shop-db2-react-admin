@@ -1,6 +1,7 @@
 import {stringify} from 'query-string';
 import simpleRestProvider from 'ra-data-simple-rest';
 import {fetchUtils} from "react-admin";
+import {deepCompare} from "./shared/compare";
 
 // URL to the API
 const apiUrl: string = '';
@@ -56,7 +57,7 @@ const customDataProvider = {
         // Only submit changed values
         let params_to_patch = {};
         for (let [key, value] of Object.entries(params.data)) {
-            if (params.previousData[key] !== value) { //only works for primitives
+            if (!deepCompare(params.previousData[key], value)) {
                 params_to_patch[key] = value;
             }
         }
