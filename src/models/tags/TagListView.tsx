@@ -7,7 +7,7 @@ export const TagList = (props: any) => (
     <List
         {...props}
         bulkActionButtons={false}>
-        <Datagrid>
+        <Datagrid rowClick="edit">
             <NumberField source="id"/>
             <TextField source="name"/>
             <UserReferenceField source="created_by"/>
