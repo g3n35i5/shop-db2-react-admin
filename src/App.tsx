@@ -4,24 +4,18 @@ import Dashboard from "./dashboard/Dashboard";
 import authProvider from './authentication/AuthProvider';
 import LogoutButton from "./authentication/LogoutButton";
 import LoginPage from "./authentication/LoginPage";
-import { UserList } from './models/users/UserListView';
-import { UserCreate } from './models/users/UserCreate';
-import { UserEdit } from './models/users/UserEdit';
-import { PurchaseList } from './models/purchases/PurchaseListView';
-import { ProductList } from './models/products/ProductListView';
-import { ProductEdit } from "./models/products/ProductEdit";
-import { TagList } from './models/tags/TagListView';
-import { TagCreate } from './models/tags/TagCreate';
-import { TagEdit } from './models/tags/TagEdit';
-import { RankList } from './models/ranks/RankListView';
-import { RankCreate } from './models/ranks/RankCreate';
-import { RankEdit } from './models/ranks/RankEdit';
 import { AccountGroup, AccountBadgeHorizontal, FoodApple, Tag, Cart } from 'mdi-material-ui'
 import {createMuiTheme} from '@material-ui/core/styles';
 import customDataProvider from './DataProvider';
 import {deepPurple, lime} from '@material-ui/core/colors';
-import {DepositList} from "./models/deposits/DepositListView";
-import {DepositCreate} from "./models/deposits/DepositCreate";
+
+// Resource imports
+import { UserList, UserCreate, UserEdit } from './models/users/User';
+import { PurchaseList } from './models/purchases/Purchase';
+import { ProductList, ProductEdit } from './models/products/Product';
+import { TagList, TagCreate, TagEdit } from './models/tags/Tag';
+import { RankList, RankCreate, RankEdit } from './models/ranks/Rank';
+import { DepositList, DepositCreate } from './models/deposits/Deposit';
 
 const theme = createMuiTheme({
     palette: {
