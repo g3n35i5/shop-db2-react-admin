@@ -4,8 +4,8 @@ import {FieldProps} from "../interfaces/FieldProps";
 
 
 export const TimestampField: FC<FieldProps> = (props: FieldProps) => {
-    if (props && props.record && props.source) {
-        return <Moment format="DD.MM.YYYY HH:mm" utc>{props.record[props.source]}</Moment>
+    if (props && props.record && props.source && props.record[props.source] !== null) {
+        return <Moment format="DD.MM.YYYY HH:mm">{props.record[props.source]}</Moment>
     }
     return null;
 };

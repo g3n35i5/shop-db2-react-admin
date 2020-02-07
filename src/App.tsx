@@ -11,7 +11,7 @@ import {deepPurple, lime} from '@material-ui/core/colors';
 
 // Resource imports
 import { UserList, UserCreate, UserEdit } from './models/users/User';
-import { PurchaseList } from './models/purchases/Purchase';
+import { PurchaseList, PurchaseCreate } from './models/purchases/Purchase';
 import { ProductList, ProductEdit } from './models/products/Product';
 import { TagList, TagCreate, TagEdit } from './models/tags/Tag';
 import { RankList, RankCreate, RankEdit } from './models/ranks/Rank';
@@ -36,7 +36,7 @@ const App = () => (
         logoutButton={LogoutButton}>
         {/*Resources*/}
         <Resource name="users" list={UserList} create={UserCreate} edit={UserEdit} icon={AccountGroup}/>
-        <Resource name="purchases" list={PurchaseList} icon={Cart}/>
+        <Resource name="purchases" list={PurchaseList} create={PurchaseCreate} icon={Cart}/>
         <Resource name="products" list={ProductList} edit={ProductEdit} icon={FoodApple}/>
         <Resource name="deposits" list={DepositList} create={DepositCreate} icon={CurrencyUsd}/>
         <Resource name="tags" list={TagList} create={TagCreate} edit={TagEdit} icon={Tag}/>
