@@ -55,7 +55,7 @@ export const PurchaseList = (props: any) => (
         <Datagrid rowStyle={purchaseRowStyle}>
             <NumberField source="id"/>
             <UserReferenceField/>
-            <TimestampField source="creation_date"/>
+            <TimestampField source="timestamp"/>
             <ProductReferenceField/>
             <NumberField source="amount"/>
             <CurrencyInCentsField source="productprice"/>
