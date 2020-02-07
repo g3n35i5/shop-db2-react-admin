@@ -14,6 +14,8 @@ import { TagList } from './models/tags/TagListView';
 import { TagCreate } from './models/tags/TagCreate';
 import { TagEdit } from './models/tags/TagEdit';
 import { RankList } from './models/ranks/RankListView';
+import { RankCreate } from './models/ranks/RankCreate';
+import { RankEdit } from './models/ranks/RankEdit';
 import { AccountGroup, AccountBadgeHorizontal, FoodApple, Tag, Cart } from 'mdi-material-ui'
 import {createMuiTheme} from '@material-ui/core/styles';
 import customDataProvider from './DataProvider';
@@ -44,7 +46,7 @@ const App = () => (
         <Resource name="products" list={ProductList} edit={ProductEdit} icon={FoodApple}/>
         <Resource name="deposits" list={DepositList} create={DepositCreate} icon={CurrencyUsd}/>
         <Resource name="tags" list={TagList} create={TagCreate} edit={TagEdit} icon={Tag}/>
-        <Resource name="ranks" list={RankList} icon={AccountBadgeHorizontal}/>
+        <Resource name="ranks" list={RankList} create={RankCreate} edit={RankEdit} icon={AccountBadgeHorizontal}/>
     </Admin>
 );
 
