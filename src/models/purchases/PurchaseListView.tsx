@@ -1,11 +1,20 @@
 import * as React from "react";
-import {Datagrid, List, NumberField, TextField} from "react-admin";
+import {
+    BooleanInput,
+    Datagrid,
+    Filter,
+    List,
+    NumberField,
+    ReferenceInput,
+    SelectInput
+} from "react-admin";
 import {Redo, Undo} from 'mdi-material-ui'
 import UserReferenceField from "../users/UserReferenceField";
 import ProductReferenceField from "../products/ProductReferenceField";
 import {CurrencyInCentsField} from '../../shared/fields/CurrencyInCents';
 import { useUpdate, useNotify, useRefresh, Button } from 'react-admin';
 import TimestampField from "../../shared/fields/TimestampField";
+import {UserAutoComplete} from "../../shared/fields/UserAutoComplete";
 
 
 const TogglePurchaseRevokeButton = ({...props}) => {
@@ -45,11 +54,25 @@ const purchaseRowStyle = (record, index) => ({
     backgroundColor: record.revoked ? '#212121' : '',
 });
 
+// Filters for the purchase list view
+const PurchaseListFilter = (props: any) => (
+    <Filter {...props}>
+        <ReferenceInput source="product_id" reference="products">
+            <SelectInput optionText="name"/>
+        </ReferenceInput>
+        <ReferenceInput label="User" source="user_id" reference="users">
+            <UserAutoComplete/>
+        </ReferenceInput>
+        <BooleanInput source="is_verified" initialValue={true}/>
+    </Filter>
+);
+
 // List view for the purchases
 export const PurchaseList = (props: any) => (
     <List
         {...props}
         bulkActionButtons={false}
+        filters={<PurchaseListFilter/>}
         sort={{ field: 'timestamp', order: 'DESC' }}
     >
         <Datagrid rowStyle={purchaseRowStyle}>
