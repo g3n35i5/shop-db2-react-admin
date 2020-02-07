@@ -1,8 +1,6 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback} from 'react';
 import {
-    AutocompleteInput,
     Create,
-    Error,
     FormDataConsumer,
     NumberInput,
     ReferenceInput,
@@ -13,44 +11,12 @@ import {
     TextInput,
     Toolbar,
     useCreate,
-    useDataProvider,
     useNotify,
     useRedirect
 } from 'react-admin';
 import {useFormState} from 'react-final-form';
+import {UserAutoComplete} from "../../shared/fields/UserAutoComplete";
 
-import {getFullNameOfUser} from '../users/UserInterface';
-
-
-// Custom User auto completion which displays the full name of the user with the "getFullNameOfUser" method.
-// Furthermore, only users which are active and verified are being displayed.
-const UserAutoComplete = () => {
-
-    const dataProvider = useDataProvider();
-    const [users, setUsers] = useState();
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState();
-
-    useEffect(() => {
-        dataProvider.getList('users', {
-            filter: {is_verified: true, active: true}
-        })
-            .then(({data}) => {
-                setUsers(data);
-                setLoading(false);
-            })
-            .catch(error => {
-                setError(error);
-                setLoading(false);
-            })
-    }, []);
-
-    if (error) return <Error/>;
-
-    return (
-        <AutocompleteInput source="user_id" choices={users} validate={required()} optionText={user => getFullNameOfUser(user)}/>
-    )
-};
 
 // These are the choices for the comment select input. A standalone comment can be sent to the API without any
 // changes. However, a non-standalone comment triggers the "ConditionalCommentField" and the administrator
