@@ -4,10 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = ({
     main: {
-        // Random image from the unsplash collection
-        backgroundImage: 'url(https://source.unsplash.com/collection/175083/1600x900) !important',
-        // Fallback background color
-        backgroundColor: '#222 !important'
+        background: 'linear-gradient(135deg, #37474F 0%, #607D8B 100%) !important'
     }
 });
 
