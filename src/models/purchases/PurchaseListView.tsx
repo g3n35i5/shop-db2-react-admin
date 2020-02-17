@@ -5,8 +5,7 @@ import {
     Filter,
     List,
     NumberField,
-    ReferenceInput,
-    SelectInput
+    ReferenceInput
 } from "react-admin";
 import {Redo, Undo} from 'mdi-material-ui'
 import UserReferenceField from "../users/UserReferenceField";
@@ -15,6 +14,7 @@ import {CurrencyInCentsField} from '../../shared/fields/CurrencyInCents';
 import { useUpdate, useNotify, useRefresh, Button } from 'react-admin';
 import TimestampField from "../../shared/fields/TimestampField";
 import {UserAutoComplete} from "../../shared/fields/UserAutoComplete";
+import {ProductAutoComplete} from "../../shared/fields/ProductAutoComplete";
 
 
 const TogglePurchaseRevokeButton = ({...props}) => {
@@ -58,7 +58,7 @@ const purchaseRowStyle = (record, index) => ({
 const PurchaseListFilter = (props: any) => (
     <Filter {...props}>
         <ReferenceInput source="product_id" reference="products">
-            <SelectInput optionText="name"/>
+            <ProductAutoComplete/>
         </ReferenceInput>
         <ReferenceInput label="User" source="user_id" reference="users">
             <UserAutoComplete/>
