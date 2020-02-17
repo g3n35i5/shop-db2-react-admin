@@ -4,7 +4,7 @@ import Dashboard from "./dashboard/Dashboard";
 import authProvider from './authentication/AuthProvider';
 import LogoutButton from "./authentication/LogoutButton";
 import LoginPage from "./authentication/LoginPage";
-import { AccountGroup, AccountBadgeHorizontal, FoodApple, Tag, Cart } from 'mdi-material-ui'
+import { AccountGroup, AccountBadgeHorizontal, FoodApple, Tag, Cart, CurrencyUsd} from 'mdi-material-ui'
 import {createMuiTheme} from '@material-ui/core/styles';
 import customDataProvider from './DataProvider';
 import {deepPurple, lime} from '@material-ui/core/colors';
