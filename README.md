@@ -3,6 +3,14 @@ This is a re-write [shop-db2-admin](https://github.com/g3n35i5/shop-db2-admin) b
 
 ![image info](./.github/media/dashboard.png)
 
+## First steps
+Create your productive configuration by copying the example
+
+```bash
+$ mv src/environments/environment.prod.example.tsx src/environments/environment.prod.tsx
+```
+
+Now change the variable `apiURL` in the `src/environments/environment.prod.tsx` file.
 ## Available Scripts
 
 In the project directory, you can run:
