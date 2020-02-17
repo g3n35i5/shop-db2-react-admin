@@ -122,9 +122,7 @@ const DepositCreateToolbar = props => (
 export const DepositCreate = (props) => (
     <Create {...props}>
         <SimpleForm toolbar={<DepositCreateToolbar/>}>
-            <ReferenceInput label="User" source="user_id" reference="users">
-                <UserAutoComplete/>
-            </ReferenceInput>
+            <UserAutoComplete/>
             <SelectInput resettable translateChoice={false} source="comment" optionText="text" optionValue="text"
                          choices={commentSelectChoices} validate={required()}/>
             <FormDataConsumer>
