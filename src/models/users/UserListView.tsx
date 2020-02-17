@@ -15,6 +15,8 @@ import {
     NumberField,
     TextInput
 } from 'react-admin';
+import TimestampField from "../../shared/fields/TimestampField";
+import {CurrencyInCentsField} from "../../shared/fields/CurrencyInCents";
 
 
 // Filters for the user list view
@@ -48,6 +50,9 @@ export const UserList = (props: any) => (
             <NumberField source="id"/>
             <TextField source="firstname"/>
             <TextField source="lastname"/>
+            <TimestampField source="creation_date"/>
+            <TimestampField source="verification_date"/>
+            <CurrencyInCentsField source="credit"/>
             <ReferenceField label="Rank" source="rank_id" reference="ranks" sortable={false}>
                 <ChipField source="name"/>
             </ReferenceField>
