@@ -1,5 +1,5 @@
 {
-  "name": "shop-db2-admin",
+  "name": "shop-db2-react-admin",
   "version": "0.1.0",
   "proxy": "http://localhost:5000",
   "private": true,
