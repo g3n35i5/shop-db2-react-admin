@@ -2,6 +2,7 @@ import { AuthProvider } from 'ra-core';
 import { Error } from 'react-admin';
 import decodeJwt from 'jwt-decode';
 import {User} from "../models/users/UserInterface";
+import {environment} from "../environments/environment";
 
 interface LoginResponse {
     result: boolean;
@@ -16,7 +17,7 @@ export interface Token {
 const authProvider: AuthProvider = {
     login: ({username, password}) => {
         const _id = parseInt(username);
-        const request = new Request('login', {
+        const request = new Request(`${environment.apiURL}/login`, {
             method: 'POST',
             body: JSON.stringify({id: _id, password: password}),
             headers: new Headers({'Content-Type': 'application/json'}),

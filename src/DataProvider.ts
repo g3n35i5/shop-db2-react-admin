@@ -2,9 +2,7 @@ import {stringify} from 'query-string';
 import simpleRestProvider from 'ra-data-simple-rest';
 import {fetchUtils} from "react-admin";
 import {deepCompare} from "./shared/compare";
-
-// URL to the API
-const apiUrl: string = '';
+import {environment} from "./environments/environment";
 
 // Custom httpClient with authorization
 const httpClient = (url, options: any = {}) => {
@@ -17,7 +15,7 @@ const httpClient = (url, options: any = {}) => {
 };
 
 // Base data provider
-const dataProvider = simpleRestProvider(apiUrl, httpClient);
+const dataProvider = simpleRestProvider(environment.apiURL, httpClient);
 
 // Custom data provider
 const customDataProvider = {
@@ -33,7 +31,7 @@ const customDataProvider = {
             filter: JSON.stringify(params.filter),
         };
 
-        const url = `${apiUrl}/${resource}?${stringify(query)}`;
+        const url = `${environment.apiURL}/${resource}?${stringify(query)}`;
 
         return httpClient(url).then(({headers, json}) => {
             if (!headers.has('content-range')) {
@@ -62,13 +60,23 @@ const customDataProvider = {
             }
         }
 
-        return httpClient(`${apiUrl}/${resource}/${params.id}`, {
+        return httpClient(`${environment.apiURL}/${resource}/${params.id}`, {
             method: 'PUT',
             body: JSON.stringify(params_to_patch),
         }).then(({json}) => ({data: json}))
     }
 
 
+};
+
+/**
+ * This function returns the url to an image if the item has the property 'imagename'
+ */
+export const getImageURL = (item: any): string => {
+    if (item && item.hasOwnProperty('imagename') && item.imagename !== null) {
+        return `${environment.apiURL}/images/${item.imagename}`;
+    }
+    return `${environment.apiURL}/images`;
 };
 
 export default customDataProvider;

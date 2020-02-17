@@ -2,6 +2,7 @@ import React from 'react';
 import {ReferenceField} from 'react-admin';
 import {makeStyles} from '@material-ui/core/styles';
 import ImageField from '../../shared/fields/ImageField';
+import {getImageURL} from '../../DataProvider';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -13,11 +14,10 @@ const useStyles = makeStyles(theme => ({
 
 const ProductWithImageField = props => {
     const classes = useStyles();
-    let src = props.record.imagename ? 'images/' + props.record.imagename : 'images';
     let name = props.record.name;
     return (
         <div className={classes.root}>
-            <ImageField alt={name} src={src}/>
+            <ImageField alt={name} src={getImageURL(props.record)}/>
             {name}
         </div>
     );
