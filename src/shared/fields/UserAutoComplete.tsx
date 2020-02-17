@@ -4,7 +4,7 @@ import {getFullNameOfUser} from "../../models/users/UserInterface";
 
 // Custom User auto completion which displays the full name of the user with the "getFullNameOfUser" method.
 // Furthermore, only users which are active and verified are being displayed.
-export const UserAutoComplete = () => {
+export const UserAutoComplete = (props) => {
 
     const dataProvider = useDataProvider();
     const [users, setUsers] = useState();
@@ -23,11 +23,11 @@ export const UserAutoComplete = () => {
                 setError(error);
                 setLoading(false);
             })
-    }, []);
+    }, [dataProvider]);
 
     if (error) return <Error error="Error in UserAutoComplete"/>;
 
     return (
-        <AutocompleteInput source="user_id" choices={users} validate={required()} optionText={user => getFullNameOfUser(user)}/>
+        <AutocompleteInput {...props} source="user_id" choices={users} validate={required()} optionText={user => getFullNameOfUser(user)}/>
     )
 };
