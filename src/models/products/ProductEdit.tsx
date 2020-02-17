@@ -4,8 +4,8 @@ import {BooleanInput, Edit, SimpleForm, TextInput, ReferenceArrayInput, SelectAr
 export const ProductEdit = props => (
     <Edit {...props}>
         <SimpleForm>
-            <TextInput source="barcode"/>
             <TextInput source="name" validate={[required()]}/>
+            <TextInput source="barcode"/>
             <BooleanInput source="active" validate={[required()]}/>
             <BooleanInput source="countable" validate={[required()]}/>
             <BooleanInput source="revocable" validate={[required()]}/>
