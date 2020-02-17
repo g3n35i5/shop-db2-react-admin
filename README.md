@@ -1,5 +1,5 @@
 # shop-db2 react-admin
-This is a re-write of shop-db2-admin based on the framework [react-admin](https://github.com/marmelab/react-admin).
+This is a re-write [shop-db2-admin](https://github.com/g3n35i5/shop-db2-admin) based on the framework [react-admin](https://github.com/marmelab/react-admin).
 
 ![image info](./.github/media/dashboard.png)
 
