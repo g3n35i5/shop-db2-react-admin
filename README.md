@@ -1,4 +1,7 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# shop-db2 react-admin
+This is a re-write of shop-db2-admin based on the framework [react-admin](https://github.com/marmelab/react-admin).
+
+![image info](./.github/media/dashboard.png)
 
 ## Available Scripts
 
