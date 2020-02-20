@@ -52,7 +52,7 @@ export const UserList = (props: any) => (
             <TextField source="lastname"/>
             <TimestampField source="creation_date"/>
             <TimestampField source="verification_date"/>
-            <CurrencyInCentsField source="credit"/>
+            <CurrencyInCentsField source="credit" sortable={false}/>
             <ReferenceField label="Rank" source="rank_id" reference="ranks" sortable={false}>
                 <ChipField source="name"/>
             </ReferenceField>
