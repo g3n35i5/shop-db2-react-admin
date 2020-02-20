@@ -1,8 +1,6 @@
-import React, {FC} from "react";
+import React from "react";
 
-import {FieldProps} from "../interfaces/FieldProps";
-
-export const CurrencyInCentsField: FC<FieldProps> = (props: FieldProps) => {
+export const CurrencyInCentsField = (props) => {
     if (props.record && props.source && props.record[props.source] !== null) {
         // Divide the amount in cents by 100 to get the currency amount in EUR
         const cents = props.record[props.source] / 100;
