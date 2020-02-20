@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
 const ImageField = ({alt, src}) => {
     const classes = useStyles();
     if (src !== null) {
-        return <Avatar alt={alt} src={src} className={classes.avatar}/>;
+        return <Avatar variant="rounded" alt={alt} src={src} className={classes.avatar}/>;
     }
     return <Avatar alt={alt} className={classes.avatar}/>;
 
