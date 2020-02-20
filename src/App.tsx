@@ -4,7 +4,7 @@ import Dashboard from "./dashboard/Dashboard";
 import authProvider from './authentication/AuthProvider';
 import LogoutButton from "./authentication/LogoutButton";
 import LoginPage from "./authentication/LoginPage";
-import { AccountGroup, AccountBadgeHorizontal, FoodApple, Tag, Cart, CurrencyUsd} from 'mdi-material-ui'
+import { AccountGroup, AccountBadgeHorizontal, FoodApple, Tag, Cart, CurrencyUsd, Basket} from 'mdi-material-ui'
 import {createMuiTheme} from '@material-ui/core/styles';
 import customDataProvider from './DataProvider';
 import {deepPurple, lime} from '@material-ui/core/colors';
@@ -16,6 +16,7 @@ import { ProductList, ProductCreate, ProductEdit } from './models/products/Produ
 import { TagList, TagCreate, TagEdit } from './models/tags/Tag';
 import { RankList, RankCreate, RankEdit } from './models/ranks/Rank';
 import { DepositList, DepositCreate } from './models/deposits/Deposit';
+import { ReplenishmentCollectionList, ReplenishmentCollectionEdit } from "./models/replenishments/Replenishments";
 
 const theme = createMuiTheme({
     palette: {
@@ -24,7 +25,6 @@ const theme = createMuiTheme({
         secondary: deepPurple
     },
 });
-
 
 const App = () => (
     <Admin
@@ -41,6 +41,7 @@ const App = () => (
         <Resource name="deposits" list={DepositList} create={DepositCreate} icon={CurrencyUsd}/>
         <Resource name="tags" list={TagList} create={TagCreate} edit={TagEdit} icon={Tag}/>
         <Resource name="ranks" list={RankList} create={RankCreate} edit={RankEdit} icon={AccountBadgeHorizontal}/>
+        <Resource name="replenishmentcollections" list={ReplenishmentCollectionList} edit={ReplenishmentCollectionEdit} icon={Basket}/>
     </Admin>
 );
 
