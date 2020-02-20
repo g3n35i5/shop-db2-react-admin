@@ -7,7 +7,7 @@ import {
     NumberField,
     ReferenceInput
 } from "react-admin";
-import {Redo, Undo} from 'mdi-material-ui'
+import {Redo, Undo} from 'mdi-material-ui';
 import UserReferenceField from "../users/UserReferenceField";
 import ProductReferenceField from "../products/ProductReferenceField";
 import {CurrencyInCentsField} from '../../shared/fields/CurrencyInCents';
