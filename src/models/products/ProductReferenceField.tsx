@@ -3,6 +3,7 @@ import {ReferenceField} from 'react-admin';
 import {makeStyles} from '@material-ui/core/styles';
 import ImageField from '../../shared/fields/ImageField';
 import {getImageURL} from '../../DataProvider';
+import {FoodApple} from 'mdi-material-ui'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -12,12 +13,12 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const ProductWithImageField = props => {
+export const ProductWithImageField = props => {
     const classes = useStyles();
     let name = props.record.name;
     return (
         <div className={classes.root}>
-            <ImageField alt={name} src={getImageURL(props.record)}/>
+            <ImageField alt={name} src={getImageURL(props.record)} fallback={<FoodApple/>}/>
             {name}
         </div>
     );

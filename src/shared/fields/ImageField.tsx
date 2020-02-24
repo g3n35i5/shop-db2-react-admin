@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 
 const useStyles = makeStyles(theme => ({
@@ -8,12 +8,16 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const ImageField = ({alt, src}) => {
+const ImageField = (props) => {
     const classes = useStyles();
-    if (src !== null) {
-        return <Avatar variant="rounded" alt={alt} src={src} className={classes.avatar}/>;
+
+    if (props.fallback) {
+        return (<Avatar alt={props.alt} src={props.src} className={classes.avatar}>
+            {props.fallback}
+        </Avatar>)
+    } else {
+        return <Avatar alt={props.alt} src={props.src} className={classes.avatar}/>;
     }
-    return <Avatar alt={alt} className={classes.avatar}/>;
 
 };
 
