@@ -83,7 +83,7 @@ export const PurchaseList = (props: any) => (
             <ProductReferenceField/>
             <NumberField source="amount"/>
             <CurrencyInCentsField source="productprice"/>
-            <CurrencyInCentsField source="price"/>
+            <CurrencyInCentsField source="price" sortable={false}/>
             <TogglePurchaseRevokeButton/>
         </Datagrid>
     </List>
