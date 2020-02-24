@@ -52,7 +52,7 @@ export const DepositList = (props: any) => (
     >
         <Datagrid rowStyle={depositRowStyle}>
             <NumberField source="id"/>
-            <TimestampField source="creation_date"/>
+            <TimestampField source="timestamp"/>
             <UserReferenceField source="admin_id"/>
             <UserReferenceField source="user_id"/>
             <CurrencyInCentsField source="amount"/>
