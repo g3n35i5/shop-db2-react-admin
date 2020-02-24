@@ -1,7 +1,6 @@
-import React, {Fragment, useCallback, useEffect, useState} from 'react';
+import React, {Fragment, useCallback, useState} from 'react';
 import {
-    BooleanInput,
-    Edit,
+    Create,
     maxLength,
     minLength,
     NumberInput,
@@ -9,7 +8,7 @@ import {
     SaveButton,
     TextInput,
     Toolbar,
-    useDataProvider,
+    useCreate,
     useNotify,
     useRedirect
 } from 'react-admin';
@@ -20,10 +19,10 @@ import {CurrencyInCentsField} from "../../shared/fields/CurrencyInCents";
 import {tableIcons} from "../../shared/MaterialTableIcons";
 import {Form} from 'react-final-form';
 import {DateTimeInput} from 'react-admin-date-inputs';
-import {deepCompare} from "../../shared/compare";
+
 import {Box, Paper, Typography} from '@material-ui/core';
-import {Replenishment} from "./Replenishments";
-import UserReferenceField from "../users/UserReferenceField";
+import {ProductAutoComplete} from "../../shared/fields/ProductAutoComplete";
+import {Replenishment, ReplenishmentCollection} from "./Replenishments";
 
 // Styles for all components
 const useStyles = makeStyles({
@@ -35,66 +34,59 @@ const useStyles = makeStyles({
     }
 });
 
-// This helper function returns whether to hide the save button.
-const saveButtonDisabled = (data: any | null) => {
-    const isEmpty = !data || !data.hasOwnProperty('collection');
+// This helper function returns whether the state is a valid replenishmentcollection.
+const isValidCollection = (data: any | null) => {
+    const isEmpty = !data;
     const hasNoComment = !data.hasOwnProperty('comment') || data.comment === null || data.comment === "";
     const hasNoTimestamp = !data.hasOwnProperty('timestamp') || data.timestamp === null || data.timestamp === "";
+    const hasNoReplenishments = (!data.hasOwnProperty('replenishments') ||
+        (Array.isArray(data.replenishments) && data.replenishments.length === 0));
 
-    // Check whether anything has changed.
-    const previousData = {
-        comment: data.collection.comment,
-        timestamp: data.collection.timestamp,
-        revoked: data.collection.revoked
-    };
-    const newData = {
-        comment: data.comment,
-        timestamp: data.timestamp,
-        revoked: data.revoked
-    };
-    const nothingChanged = deepCompare(previousData, newData);
-
-    return isEmpty || hasNoComment || hasNoTimestamp || nothingChanged;
+    return isEmpty || hasNoComment || hasNoTimestamp || hasNoReplenishments;
 };
 
 
 // Custom save button which alters the replenishmentcollection payload.
-const EditReplenishmentCollectionButton = ({state, dataProvider, ...props}) => {
+const CreateReplenishmentCollectionButton = ({state, ...props}) => {
+    const [create] = useCreate('replenishmentcollections');
+    const redirectTo = useRedirect();
     const notify = useNotify();
-    const redirect = useRedirect();
+    const {basePath, redirect} = props;
 
     let handleClick = useCallback(() => {
-        const previousData = {
-            comment: state.collection.comment,
-            timestamp: state.collection.timestamp,
-            revoked: state.collection.revoked
-        };
-        const data = {
+        // Create replenishmentcollection
+        let collection: ReplenishmentCollection = {
             comment: state.comment,
             timestamp: state.timestamp,
-            revoked: state.revoked
+            replenishments: state.replenishments.map(r => parseReplenishment(r))
         };
 
-        // Update replenishmentcollection
-        dataProvider.update('replenishmentcollections', {
-            id: state.collection.id,
-            data: data,
-            previousData: previousData
-        })
-            .then(({data}) => {
-                redirect('/replenishmentcollections');
-            })
-            .catch(error => {
-                notify(error, 'warning');
-            })
+        // Send the collection to the API.
+        create(
+            {
+                payload: {data: collection},
+            },
+            {
+                // Return to the list view on success.
+                onSuccess: ({data: newRecord}) => {
+                    notify('ra.notification.created', 'info', {
+                        smart_count: 1,
+                    });
+                    redirectTo(redirect, basePath, newRecord.id, newRecord);
+                },
+            }
+        );
 
     }, [
         state,
-        dataProvider,
-        notify
+        create,
+        notify,
+        redirectTo,
+        redirect,
+        basePath,
     ]);
 
-    return <SaveButton disabled={saveButtonDisabled(state)} {...props} handleSubmitWithRedirect={handleClick}/>;
+    return <SaveButton disabled={isValidCollection(state)} {...props} handleSubmitWithRedirect={handleClick}/>;
 };
 
 // This helper function parses a material-table row entry to a replenishment.
@@ -107,62 +99,96 @@ const parseReplenishment = (row: any): Replenishment => {
 };
 
 
-// This is the main view for the edit-replenishmentcollection view.
-const EditPanel = ({record, ...rest}) => {
-    // Initial state: record or undefined
-    const [state, setState] = useState<any>({
-        collection: record,
-        comment: record.comment,
-        timestamp: record.timestamp,
-        revoked: record.revoked
+// This is the main view for the create-replenishmentcollection view.
+const CreatePanel = ({record, ...rest}) => {
+    // Initial state: empty replenishmentcollection
+    const [state, setState] = useState<ReplenishmentCollection>({
+        timestamp: "",
+        comment: "",
+        replenishments: []
     });
-
-    useEffect(() => {
-        setState(() => ({
-            collection: record,
-            comment: record.comment,
-            timestamp: record.timestamp,
-            revoked: record.revoked
-        }));
-    }, [record]);
-
-    const dataProvider = useDataProvider();
-
-    // This function reloads the collection on any update
-    const reloadCollection = useCallback(async () => {
-        const {data: collection} = await dataProvider.getOne('replenishmentcollections', {id: record.id});
-        setState(() => ({
-            collection: collection,
-            comment: collection.comment,
-            timestamp: collection.timestamp,
-            revoked: collection.revoked
-        }));
-    }, [dataProvider, record]);
-
 
     const classes = useStyles();
     const notify = useNotify();
 
     // Edit properties for the material-table
     const editable = {
+        // This method gets called each time a row entry gets added
+        onRowAdd: newData =>
+            new Promise((resolve, reject) => {
+                // The product must only appear once in the list of replenishments.
+                // Moreover, the amount must not be zero.
+                const replenishment = parseReplenishment(newData);
+                if (state.replenishments.map(r => r.product_id).indexOf(replenishment.product_id) !== -1) {
+                    notify('This product has already been added', 'warning');
+                    reject();
+                } else if (replenishment.amount === 0) {
+                    notify('The amount must not be zero', 'warning');
+                    reject();
+                } else {
+                    setState(prevState => ({
+                        ...prevState,
+                        replenishments: [...prevState.replenishments, newData]
+                    }));
+                    resolve();
+                }
+            }),
         // This method gets called each time a row entry gets updated
         onRowUpdate: (newData, oldData) =>
             new Promise((resolve, reject) => {
-                const replenishment = parseReplenishment(newData);
-                if (replenishment.amount === 0) {
-                    notify('The amount must not be zero', 'warning');
+                // Substitute the entry if it exist. Otherwise, throw a warning
+                let data = state.replenishments;
+                const index = data.indexOf(oldData);
+                let isValid = true;
+
+                // The entry must exist in the current list of replenishments in order to be editet.
+                if (index === -1) {
+                    notify('The entry you\'re trying to update does not exist', 'warning');
+                    isValid = false;
                     reject();
                 }
-
-                dataProvider.update('replenishments', {id: oldData.id, data: newData, previousData: oldData})
-                    .then(({data}) => {
-                        reloadCollection().then(() => resolve());
-                    })
-                    .catch(error => {
-                        notify(error, 'warning');
+                // The product must only appear once in the list of replenishments.
+                else if (oldData.product_id !== newData.product_id) {
+                    if (data.map(r => r.product_id).indexOf(newData.product_id) !== -1) {
+                        notify('This product has already been added', 'warning');
+                        isValid = false;
                         reject();
-                    })
+                    }
+                }
+                // The amount must not be zero.
+                else if (newData.amount === 0) {
+                    notify('The amount must not be zero', 'warning');
+                    isValid = false;
+                    reject();
+                }
+                // All valid. Go for it!
+                if (isValid) {
+                    data[index] = newData;
+                    setState(prevState => ({
+                        ...prevState,
+                        replenishments: data
+                    }));
+                    resolve();
+                }
             }),
+        // This method gets called each time a row entry gets deleted
+        onRowDelete: oldData =>
+            new Promise((resolve, reject) => {
+                // Delete the entry if it exist. Otherwise, throw a warning
+                let data = state.replenishments;
+                const index = data.indexOf(oldData);
+                if (index === -1) {
+                    notify('The entry you\'re trying to update does not exist', 'warning');
+                    reject();
+                } else {
+                    data.splice(index, 1);
+                    setState(prevState => ({
+                        ...prevState,
+                        replenishments: data
+                    }));
+                    resolve();
+                }
+            })
     };
 
     // Column definitions for the material-table
@@ -172,7 +198,19 @@ const EditPanel = ({record, ...rest}) => {
             title: 'Product',
             field: 'product_id',
             sorting: false,
-            editable: 'never',
+            editComponent: props => (
+                <Form
+                    onSubmit={() => {
+                    }}
+                    render={({form, values, invalid}) => {
+                        return (
+                            <ProductAutoComplete initialValue={props.value} fullWidth
+                                                 validate={[required()]}
+                                                 onChange={e => props.onChange(e)}/>
+                        )
+                    }}>
+                </Form>
+            ),
             render: rowData => <ProductReferenceField record={rowData}
                                                       fullWidth
                                                       source="product_id" {...rest}/>
@@ -214,12 +252,6 @@ const EditPanel = ({record, ...rest}) => {
             ),
             render: rowData => <CurrencyInCentsField record={rowData}
                                                      source="total_price" {...rest}/>
-        },
-        // Column for the revoked state
-        {
-            title: 'Revoked',
-            field: 'revoked',
-            type: 'boolean',
         }
     ];
 
@@ -243,7 +275,7 @@ const EditPanel = ({record, ...rest}) => {
                     title="List of replenished products"
                     icons={tableIcons}
                     columns={columns}
-                    data={state.collection?.replenishments}
+                    data={state?.replenishments}
                     components={components}
                     editable={editable}
                     options={{
@@ -255,14 +287,12 @@ const EditPanel = ({record, ...rest}) => {
                 />
             </Box>
             <Toolbar {...rest}>
-                <EditReplenishmentCollectionButton
-                    {...rest}
+                <CreateReplenishmentCollectionButton
                     handleSubmitWithRedirect
-                    dataProvider={dataProvider}
                     label="ra.action.save"
                     redirect="show"
                     state={state}
-                    submitOnEnter={false}
+                    submitOnEnter={true}
                 />
             </Toolbar>
         </Fragment>
@@ -271,12 +301,12 @@ const EditPanel = ({record, ...rest}) => {
 
 // Left side component: Just a small overview over the replenishmentcollection
 const ReplenishmentCollectionDetails = ({state, setState, ...rest}) => {
+    const classes = useStyles();
 
     // Calculates the sum of all replenishments
     const getReplenishmentSum = (): number => {
-        if (state.collection && state.collection.replenishments?.length > 0) {
-            const filtered = state.collection.replenishments.filter(r => !r.revoked);
-            return filtered.map(r => parseInt(r.total_price)).reduce((a, b) => {
+        if (state.replenishments && state.replenishments.length > 0) {
+            return state.replenishments.map(r => parseInt(r.total_price)).reduce((a, b) => {
                 return a + b
             });
         }
@@ -285,7 +315,6 @@ const ReplenishmentCollectionDetails = ({state, setState, ...rest}) => {
 
     const validateComment = [required(), minLength(4), maxLength(64)];
     const validateTimestamp = [required()];
-    const validateRevoked = [required()];
 
     // Each time the value of the TextInput (Comment) changes, the state gets updated
     const handleCommentChange = (event => setState(prevState => ({
@@ -297,11 +326,6 @@ const ReplenishmentCollectionDetails = ({state, setState, ...rest}) => {
         ...prevState, timestamp: timestamp
     })));
 
-    // Each time the value of the BooleanInput (Revoked) changes, the state gets updated
-    const handleRevokedChange = (value => setState(prevState => ({
-        ...prevState, revoked: value
-    })));
-
     return (
         <Form
             onSubmit={() => {
@@ -309,19 +333,16 @@ const ReplenishmentCollectionDetails = ({state, setState, ...rest}) => {
             render={({form, values, invalid}) => {
                 return (
                     <form>
-                        <Typography variant="h6" gutterBottom>Information</Typography>
-                        <UserReferenceField {...rest} record={state?.collection} source="admin_id"/>
+                        <Typography variant="h6" gutterBottom>Comment and Timestamp</Typography>
                         <TextInput
                             onChange={handleCommentChange}
                             source="comment"
-                            initialValue={state.comment}
                             validate={validateComment}
                             fullWidth/>
                         <DateTimeInput
                             source="timestamp"
                             label="Timestamp"
                             fullWidth
-                            initialValue={state.timestamp}
                             onChange={handleTimestampChange}
                             validate={validateTimestamp}
                             options={{
@@ -330,25 +351,19 @@ const ReplenishmentCollectionDetails = ({state, setState, ...rest}) => {
                                 ampm: false,
                                 clearable: true
                             }}/>
-                        <BooleanInput
-                            onChange={handleRevokedChange}
-                            source="revoked"
-                            validate={validateRevoked}
-                            initialValue={state.revoked}/>
                         <Box mt="8px">
                             Sum: <CurrencyInCentsField record={getReplenishmentSum()}/>
                         </Box>
-
                     </form>
                 );
             }}/>
     )
 };
 
-export const ReplenishmentCollectionEdit = props => {
+export const ReplenishmentCollectionCreate = props => {
     return (
-        <Edit {...props}>
-            <EditPanel {...props}/>
-        </Edit>
+        <Create {...props}>
+            <CreatePanel {...props}/>
+        </Create>
     );
 };
