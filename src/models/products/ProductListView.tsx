@@ -40,7 +40,7 @@ export const ProductList = (props: any) => (
         bulkActionButtons={false}>
         <Datagrid rowStyle={productRowStyle} rowClick="edit">
             <NumberField source="id"/>
-            <ProductWithImageField/>
+            <ProductWithImageField label="Name" sortBy="name"/>
             <CurrencyInCentsField source="price"/>
             <TimestampField source="creation_date"/>
             <TextField source="barcode"/>
