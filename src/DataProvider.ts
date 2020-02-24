@@ -72,11 +72,11 @@ const customDataProvider = {
 /**
  * This function returns the url to an image if the item has the property 'imagename'
  */
-export const getImageURL = (item: any): string => {
+export const getImageURL = (item: any): string | undefined => {
     if (item && item.hasOwnProperty('imagename') && item.imagename !== null) {
         return `${environment.apiURL}/images/${item.imagename}`;
     }
-    return `${environment.apiURL}/images`;
+    return undefined;
 };
 
 export default customDataProvider;
