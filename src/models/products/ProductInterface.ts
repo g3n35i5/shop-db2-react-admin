@@ -1,5 +1,5 @@
-import { Record } from 'ra-core';
-import { Tag } from '../tags/TagInterface';
+import {Record} from 'ra-core';
+import {Tag} from '../tags/TagInterface';
 
 export interface Product extends Record {
     id: number;

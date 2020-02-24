@@ -1,5 +1,15 @@
 import React from 'react';
-import {BooleanInput, Edit, SimpleForm, TextInput, ReferenceArrayInput, SelectArrayInput, required} from 'react-admin';
+import {
+    BooleanInput,
+    Edit,
+    ImageField,
+    ImageInput,
+    ReferenceArrayInput,
+    required,
+    SelectArrayInput,
+    SimpleForm,
+    TextInput
+} from 'react-admin';
 
 export const ProductEdit = props => (
     <Edit {...props}>
@@ -10,7 +20,7 @@ export const ProductEdit = props => (
             <BooleanInput source="countable" validate={[required()]}/>
             <BooleanInput source="revocable" validate={[required()]}/>
             <ReferenceArrayInput label="Tags" source="tags" reference="tags" validate={[required()]}>
-                <SelectArrayInput optionText="name" />
+                <SelectArrayInput optionText="name"/>
             </ReferenceArrayInput>
         </SimpleForm>
     </Edit>

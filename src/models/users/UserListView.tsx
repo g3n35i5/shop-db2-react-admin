@@ -1,18 +1,18 @@
 import * as React from 'react';
 
 import {
+    BooleanInput,
     ChipField,
     Datagrid,
     DeleteButton,
     EditButton,
     Filter,
     List,
+    NumberField,
     ReferenceField,
     ReferenceInput,
-    BooleanInput,
     SelectInput,
     TextField,
-    NumberField,
     TextInput
 } from 'react-admin';
 import TimestampField from "../../shared/fields/TimestampField";
@@ -32,8 +32,8 @@ const UserListFilter = (props: any) => (
 );
 
 // This custom field returns the delete button for the element if the condition matches (negated!)
-const ConditionalDeleteField = ({ condition, undoable = false, ...data }) => {
-    if (data && data.record && condition && data.record.hasOwnProperty(condition) && !data.record[condition] ) {
+const ConditionalDeleteField = ({condition, undoable = false, ...data}) => {
+    if (data && data.record && condition && data.record.hasOwnProperty(condition) && !data.record[condition]) {
         return <DeleteButton undoable={undoable} {...data}/>;
     }
     return null;

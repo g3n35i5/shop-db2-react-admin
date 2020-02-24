@@ -1,4 +1,4 @@
-import { PurchaseList } from './PurchaseListView';
-import { PurchaseCreate } from "./PurchaseCreate";
+import {PurchaseList} from './PurchaseListView';
+import {PurchaseCreate} from "./PurchaseCreate";
 
 export {PurchaseList, PurchaseCreate};

@@ -1,5 +1,5 @@
 import React from 'react';
-import {ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip} from "recharts";
+import {Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import {ChartLineVariant} from "mdi-material-ui";
 import {makeStyles} from "@material-ui/core/styles";
 import CardIcon from "./CardIcon";
@@ -48,10 +48,10 @@ const ChartCard = ({Icon, IconColor, Chart, Title}) => {
 const DashboardAreaChart = ({data, xKey, yKey}) => {
     return (
         <ResponsiveContainer>
-            <AreaChart data={data} margin={{ bottom: 30, top: 16 }}>
+            <AreaChart data={data} margin={{bottom: 30, top: 16}}>
                 <XAxis dataKey={xKey}/>
                 <YAxis dataKey={yKey}/>
-                <Tooltip />
+                <Tooltip/>
                 <Area type="monotone" dataKey={yKey} stroke="#8884d8" strokeWidth={2}/>
             </AreaChart>
         </ResponsiveContainer>
@@ -82,8 +82,7 @@ export const DashboardPurchasesChart = (props) => {
         }
         // Define area chart
         content = DashboardAreaChart({data: data, xKey: "name", yKey: "purchases"});
-    }
-    else {
+    } else {
         // Placeholder for the chart
         content = <Skeleton variant="rect" className={classes.chartSkeleton}/>;
     }

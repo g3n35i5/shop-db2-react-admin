@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Datagrid, List, TextField, NumberField, BooleanField} from 'react-admin';
+import {BooleanField, Datagrid, List, NumberField, TextField} from 'react-admin';
 import UserReferenceField from "../users/UserReferenceField";
 
 

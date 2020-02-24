@@ -1,4 +1,4 @@
-import { Record } from 'ra-core';
+import {Record} from 'ra-core';
 
 export interface Purchase extends Record {
     id: number;

@@ -1,6 +1,6 @@
 import * as React from "react";
-import { Login, LoginForm } from 'ra-ui-materialui';
-import { withStyles } from '@material-ui/core/styles';
+import {Login, LoginForm} from 'ra-ui-materialui';
+import {withStyles} from '@material-ui/core/styles';
 
 const styles = ({
     main: {
@@ -10,7 +10,7 @@ const styles = ({
 
 const LoginPage = props => (
     <Login
-        loginForm={<LoginForm />}
+        loginForm={<LoginForm/>}
         {...props}
     />
 );

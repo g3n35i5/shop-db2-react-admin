@@ -1,13 +1,16 @@
 import * as React from 'react';
 import {
-    List,
-    Datagrid,
-    TextField,
-    NumberField,
     BooleanField,
+    BooleanInput,
+    ChipField,
+    Datagrid,
+    Filter,
+    List,
+    NumberField,
     ReferenceArrayField,
     SingleFieldList,
-    ChipField,
+    TextField,
+    TextInput
 } from 'react-admin';
 import {CurrencyInCentsField} from "../../shared/fields/CurrencyInCents";
 import TimestampField from "../../shared/fields/TimestampField";
@@ -23,17 +26,17 @@ export const ProductList = (props: any) => (
         {...props}
         bulkActionButtons={false}>
         <Datagrid rowStyle={productRowStyle} rowClick="edit">
-            <NumberField source="id" />
+            <NumberField source="id"/>
             <TextField source="name" />
             <CurrencyInCentsField source="price"/>
             <TimestampField source="creation_date"/>
-            <TextField source="barcode" />
-            <BooleanField source="active" />
-            <BooleanField source="countable" />
-            <BooleanField source="revocable" />
+            <TextField source="barcode"/>
+            <BooleanField source="active"/>
+            <BooleanField source="countable"/>
+            <BooleanField source="revocable"/>
             <ReferenceArrayField label="Tags" reference="tags" source="tags">
                 <SingleFieldList>
-                    <ChipField source="name" />
+                    <ChipField source="name"/>
                 </SingleFieldList>
             </ReferenceArrayField>
         </Datagrid>

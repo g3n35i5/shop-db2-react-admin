@@ -2,11 +2,13 @@ import React from 'react';
 import {
     BooleanInput,
     Edit,
-    SimpleForm,
-    TextInput,
-    required,
+    maxLength,
     minLength,
-    maxLength, NumberInput, number
+    number,
+    NumberInput,
+    required,
+    SimpleForm,
+    TextInput
 } from 'react-admin';
 
 export const RankEdit = props => (

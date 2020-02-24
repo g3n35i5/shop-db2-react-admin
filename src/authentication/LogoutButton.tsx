@@ -1,7 +1,7 @@
-import React, { forwardRef } from 'react';
-import { useLogout } from 'react-admin';
+import React, {forwardRef} from 'react';
+import {useLogout} from 'react-admin';
 import MenuItem from '@material-ui/core/MenuItem';
-import { LogoutVariant } from 'mdi-material-ui'
+import {LogoutVariant} from 'mdi-material-ui'
 import Countdown from 'react-countdown';
 import decodeJwt from 'jwt-decode';
 
@@ -13,7 +13,7 @@ const LogoutButton = forwardRef((props, ref) => {
     const handleClick = () => logout();
     return (
         <MenuItem onClick={handleClick}>
-            <LogoutVariant/>&nbsp;Logout (<Countdown date={exp} daysInHours={true} />)
+            <LogoutVariant/>&nbsp;Logout (<Countdown date={exp} daysInHours={true}/>)
         </MenuItem>
     );
 });

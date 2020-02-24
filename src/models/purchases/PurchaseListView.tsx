@@ -1,17 +1,20 @@
 import * as React from "react";
 import {
     BooleanInput,
+    Button,
     Datagrid,
     Filter,
     List,
     NumberField,
-    ReferenceInput
+    ReferenceInput,
+    useNotify,
+    useRefresh,
+    useUpdate
 } from "react-admin";
 import {Redo, Undo} from 'mdi-material-ui';
 import UserReferenceField from "../users/UserReferenceField";
 import ProductReferenceField from "../products/ProductReferenceField";
 import {CurrencyInCentsField} from '../../shared/fields/CurrencyInCents';
-import { useUpdate, useNotify, useRefresh, Button } from 'react-admin';
 import TimestampField from "../../shared/fields/TimestampField";
 import {UserAutoComplete} from "../../shared/fields/UserAutoComplete";
 import {ProductAutoComplete} from "../../shared/fields/ProductAutoComplete";
@@ -24,10 +27,10 @@ const TogglePurchaseRevokeButton = ({...props}) => {
     let label = props.record.revoked ? 'Undo revoke' : 'Revoke';
     let message = props.record.revoked ? 'The revoke has been undone' : 'Purchase has been revoked';
     let icon = props.record.revoked ? <Redo/> : <Undo/>;
-    const [update, { loading, error }] = useUpdate(
+    const [update, {loading, error}] = useUpdate(
         'purchases',
         props.record.id,
-        { revoked: !props.record.revoked },
+        {revoked: !props.record.revoked},
         props.record,
         {
             onSuccess: () => {
@@ -57,9 +60,7 @@ const purchaseRowStyle = (record, index) => ({
 // Filters for the purchase list view
 const PurchaseListFilter = (props: any) => (
     <Filter {...props}>
-        <ReferenceInput source="product_id" reference="products">
-            <ProductAutoComplete/>
-        </ReferenceInput>
+        <ProductAutoComplete/>
         <ReferenceInput label="User" source="user_id" reference="users">
             <UserAutoComplete/>
         </ReferenceInput>
@@ -73,7 +74,7 @@ export const PurchaseList = (props: any) => (
         {...props}
         bulkActionButtons={false}
         filters={<PurchaseListFilter/>}
-        sort={{ field: 'timestamp', order: 'DESC' }}
+        sort={{field: 'timestamp', order: 'DESC'}}
     >
         <Datagrid rowStyle={purchaseRowStyle}>
             <NumberField source="id"/>

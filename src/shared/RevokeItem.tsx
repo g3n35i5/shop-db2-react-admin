@@ -9,10 +9,10 @@ export const ToggleRevokeButton = ({record, label, resource, ...props}) => {
     let buttonText = record?.revoked ? 'Undo revoke' : 'Revoke';
     let message = record?.revoked ? 'The revoke has been undone' : `${label} has been revoked`;
     let icon = record?.revoked ? <Redo/> : <Undo/>;
-    const [update, { loading, error }] = useUpdate(
+    const [update, {loading, error}] = useUpdate(
         resource,
         record?.id,
-        { revoked: !record?.revoked },
+        {revoked: !record?.revoked},
         record,
         {
             onSuccess: () => {

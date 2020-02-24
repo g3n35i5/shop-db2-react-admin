@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-    BooleanInput,
-    Edit,
-    SimpleForm,
-    TextInput,
-    required,
-    minLength,
-    maxLength
-} from 'react-admin';
+import {BooleanInput, Edit, maxLength, minLength, required, SimpleForm, TextInput} from 'react-admin';
 
 export const TagEdit = props => (
     <Edit {...props}>

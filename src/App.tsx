@@ -1,22 +1,25 @@
 import * as React from 'react';
-import { Admin, Resource } from 'react-admin';
+import {Admin, Resource} from 'react-admin';
 import Dashboard from "./dashboard/Dashboard";
 import authProvider from './authentication/AuthProvider';
 import LogoutButton from "./authentication/LogoutButton";
 import LoginPage from "./authentication/LoginPage";
-import { AccountGroup, AccountBadgeHorizontal, FoodApple, Tag, Cart, CurrencyUsd, Basket} from 'mdi-material-ui'
+import {AccountBadgeHorizontal, AccountGroup, Basket, Cart, CurrencyUsd, FoodApple, Tag} from 'mdi-material-ui'
 import {createMuiTheme} from '@material-ui/core/styles';
 import customDataProvider from './DataProvider';
 import {deepPurple, lime} from '@material-ui/core/colors';
-
 // Resource imports
-import { UserList, UserCreate, UserEdit } from './models/users/User';
-import { PurchaseList, PurchaseCreate } from './models/purchases/Purchase';
-import { ProductList, ProductCreate, ProductEdit } from './models/products/Product';
-import { TagList, TagCreate, TagEdit } from './models/tags/Tag';
-import { RankList, RankCreate, RankEdit } from './models/ranks/Rank';
-import { DepositList, DepositCreate } from './models/deposits/Deposit';
-import { ReplenishmentCollectionList, ReplenishmentCollectionEdit } from "./models/replenishments/Replenishments";
+import {UserCreate, UserEdit, UserList} from './models/users/User';
+import {PurchaseCreate, PurchaseList} from './models/purchases/Purchase';
+import {ProductCreate, ProductEdit, ProductList} from './models/products/Product';
+import {TagCreate, TagEdit, TagList} from './models/tags/Tag';
+import {RankCreate, RankEdit, RankList} from './models/ranks/Rank';
+import {DepositCreate, DepositList} from './models/deposits/Deposit';
+import {
+    ReplenishmentCollectionCreate,
+    ReplenishmentCollectionEdit,
+    ReplenishmentCollectionList
+} from "./models/replenishments/Replenishments";
 
 const theme = createMuiTheme({
     palette: {
@@ -41,7 +44,8 @@ const App = () => (
         <Resource name="deposits" list={DepositList} create={DepositCreate} icon={CurrencyUsd}/>
         <Resource name="tags" list={TagList} create={TagCreate} edit={TagEdit} icon={Tag}/>
         <Resource name="ranks" list={RankList} create={RankCreate} edit={RankEdit} icon={AccountBadgeHorizontal}/>
-        <Resource name="replenishmentcollections" list={ReplenishmentCollectionList} edit={ReplenishmentCollectionEdit} icon={Basket}/>
+        <Resource name="replenishmentcollections" list={ReplenishmentCollectionList}
+                  create={ReplenishmentCollectionCreate} edit={ReplenishmentCollectionEdit} icon={Basket}/>
     </Admin>
 );
 

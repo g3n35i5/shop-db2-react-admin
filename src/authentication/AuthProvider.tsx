@@ -1,5 +1,5 @@
-import { AuthProvider } from 'ra-core';
-import { Error } from 'react-admin';
+import {AuthProvider} from 'ra-core';
+import {Error} from 'react-admin';
 import decodeJwt from 'jwt-decode';
 import {User} from "../models/users/UserInterface";
 import {environment} from "../environments/environment";

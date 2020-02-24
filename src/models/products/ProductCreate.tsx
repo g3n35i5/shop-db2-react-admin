@@ -5,8 +5,10 @@ import {
     maxLength,
     minLength,
     number,
-    NumberInput, ReferenceArrayInput,
-    required, SelectArrayInput,
+    NumberInput,
+    ReferenceArrayInput,
+    required,
+    SelectArrayInput,
     SimpleForm,
     TextInput
 } from 'react-admin';
@@ -20,7 +22,7 @@ export const ProductCreate = (props) => (
             <BooleanInput source="countable" initialValue={true}/>
             <BooleanInput source="revocable" initialValue={true}/>
             <ReferenceArrayInput label="Tags" source="tags" reference="tags" validate={[required()]}>
-                <SelectArrayInput optionText="name" />
+                <SelectArrayInput optionText="name"/>
             </ReferenceArrayInput>
         </SimpleForm>
     </Create>

@@ -1,6 +1,6 @@
-import { ReplenishmentCollectionList } from "./ReplenishmentCollectionListView";
-import { ReplenishmentCollectionEdit } from "./ReplenishmentCollectionEdit";
-import { ReplenishmentCollectionCreate } from "./ReplenishmentCollectionCreate";
+import {ReplenishmentCollectionList} from "./ReplenishmentCollectionListView";
+import {ReplenishmentCollectionEdit} from "./ReplenishmentCollectionEdit";
+import {ReplenishmentCollectionCreate} from "./ReplenishmentCollectionCreate";
 
 export interface Replenishment {
     id?: number;
@@ -10,7 +10,7 @@ export interface Replenishment {
 }
 
 export interface ReplenishmentCollection {
-    id?:number;
+    id?: number;
     timestamp: string;
     comment: string;
     replenishments: Replenishment[];

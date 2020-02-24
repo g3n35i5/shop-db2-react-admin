@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from '@material-ui/core/Card';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
     card: {
@@ -19,11 +19,11 @@ const useStyles = makeStyles({
     },
 });
 
-const CardIcon = ({ Icon, bgColor }) => {
+const CardIcon = ({Icon, bgColor}) => {
     const classes = useStyles();
     return (
-        <Card className={classes.card} style={{ backgroundColor: bgColor }}>
-            <Icon className={classes.icon} />
+        <Card className={classes.card} style={{backgroundColor: bgColor}}>
+            <Icon className={classes.icon}/>
         </Card>
     );
 };

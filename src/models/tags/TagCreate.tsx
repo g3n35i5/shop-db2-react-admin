@@ -1,5 +1,5 @@
 import React from 'react';
-import { Create, SimpleForm, TextInput, BooleanInput, required, minLength, maxLength } from 'react-admin';
+import {BooleanInput, Create, maxLength, minLength, required, SimpleForm, TextInput} from 'react-admin';
 
 export const TagCreate = (props) => (
     <Create {...props}>
