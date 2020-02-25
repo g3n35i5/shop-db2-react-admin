@@ -11,10 +11,21 @@ import {
     TextInput
 } from 'react-admin';
 
-export const ProductEdit = props => (
-    <Edit undoable={false} {...props}>
-        <SimpleForm>
-            <ImageInput source="imagename" label="New image" accept="image/*">
+import {PreviewImage} from "../../shared/Image";
+import {makeStyles} from "@material-ui/core/styles";
+
+const useStyles = makeStyles(theme => ({
+    imageInput: {
+        maxWidth: '256px'
+    }
+}));
+
+const ProductEditForm = ({record, ...props}) => {
+    const classes = useStyles();
+    return (
+        <SimpleForm record={record} {...props}>
+            <PreviewImage record={record} label="Current image"/>
+            <ImageInput className={classes.imageInput} maxSize={4000000} source="imagename" label="New image" accept="image/*">
                 <ImageField source="src" title="title"/>
             </ImageInput>
             <TextInput source="name" validate={[required()]}/>
@@ -27,5 +38,11 @@ export const ProductEdit = props => (
                 <SelectArrayInput optionText="name"/>
             </ReferenceArrayInput>
         </SimpleForm>
+    );
+};
+
+export const ProductEdit = props => (
+    <Edit undoable={false} {...props}>
+        <ProductEditForm {...props}/>
     </Edit>
 );
