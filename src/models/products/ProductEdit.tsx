@@ -24,7 +24,7 @@ const ProductEditForm = ({record, ...props}) => {
     const classes = useStyles();
     return (
         <SimpleForm record={record} {...props}>
-            <PreviewImage record={record} label="Current image"/>
+            <PreviewImage record={record} {...props} label="Current image"/>
             <ImageInput className={classes.imageInput} maxSize={4000000} source="imagename" label="New image" accept="image/*">
                 <ImageField source="src" title="title"/>
             </ImageInput>

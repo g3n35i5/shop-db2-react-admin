@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export const PreviewImage = (record) => {
+export const PreviewImage = ({record, ...props}) => {
     const classes = useStyles();
     const src = getImageURL(record);
     if (src) {
