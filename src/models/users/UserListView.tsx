@@ -22,8 +22,7 @@ import {UserWithImageField} from "./UserReferenceField";
 // Filters for the user list view
 const UserListFilter = (props: any) => (
     <Filter {...props}>
-        <TextInput label="Firstname" source="firstname" alwaysOn={true}/>
-        <TextInput label="Lastname" source="lastname" alwaysOn={true}/>
+        <TextInput label="Name" source="fullname" alwaysOn={true}/>
         <ReferenceInput source="rank_id" reference="ranks">
             <SelectInput optionText="name"/>
         </ReferenceInput>
@@ -51,7 +50,7 @@ export const UserList = (props: any) => (
             <UserWithImageField label="Name" sortBy="name"/>
             <TimestampField source="creation_date"/>
             <TimestampField source="verification_date"/>
-            <CurrencyInCentsField source="credit" sortable={false}/>
+            <CurrencyInCentsField source="credit"/>
             <ReferenceField label="Rank" source="rank_id" reference="ranks" sortable={false}>
                 <ChipField source="name"/>
             </ReferenceField>
