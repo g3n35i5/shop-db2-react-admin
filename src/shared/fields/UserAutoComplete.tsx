@@ -28,7 +28,11 @@ export const UserAutoComplete = (props) => {
     if (error) return <Error error="Error in UserAutoComplete"/>;
 
     return (
-        <AutocompleteInput {...props} source="user_id" choices={users} validate={required()}
+        <AutocompleteInput {...props} source={props.source} choices={users} validate={required()}
                            optionText={user => getFullNameOfUser(user)}/>
     )
+};
+
+UserAutoComplete.defaultProps = {
+    source: "user_id"
 };

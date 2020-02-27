@@ -14,9 +14,8 @@ const ReplenishmentCollectionRowStyle = (record, index) => ({
 const ReplenishmentCollectionListFilter = (props: any) => (
     <Filter {...props}>
         <TextInput label="Comment" source="comment" alwaysOn={true}/>
-        <ReferenceInput label="Administrator" source="admin_id" reference="users">
-            <UserAutoComplete/>
-        </ReferenceInput>
+        <UserAutoComplete source="admin_id"/>
+        <UserAutoComplete source="seller_id"/>
         <BooleanInput source="revoked" initialValue={false}/>
     </Filter>
 );
@@ -33,6 +32,7 @@ export const ReplenishmentCollectionList = (props: any) => (
             <NumberField source="id"/>
             <TimestampField source="timestamp"/>
             <UserReferenceField source="admin_id"/>
+            <UserReferenceField source="seller_id"/>
             <TextField source="comment"/>
             <CurrencyInCentsField source="price"/>
         </Datagrid>
