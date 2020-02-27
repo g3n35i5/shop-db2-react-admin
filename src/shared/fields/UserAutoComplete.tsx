@@ -1,6 +1,5 @@
 import {AutocompleteInput, Error, required, useDataProvider} from "react-admin";
 import React, {useEffect, useState} from "react";
-import {getFullNameOfUser} from "../../models/users/UserInterface";
 
 // Custom User auto completion which displays the full name of the user with the "getFullNameOfUser" method.
 // Furthermore, only users which are active and verified are being displayed.
@@ -29,7 +28,7 @@ export const UserAutoComplete = (props) => {
 
     return (
         <AutocompleteInput {...props} source={props.source} choices={users} validate={required()}
-                           optionText={user => getFullNameOfUser(user)}/>
+                           optionText={user => user.fullname}/>
     )
 };
 

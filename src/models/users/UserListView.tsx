@@ -12,11 +12,11 @@ import {
     ReferenceField,
     ReferenceInput,
     SelectInput,
-    TextField,
     TextInput
 } from 'react-admin';
 import TimestampField from "../../shared/fields/TimestampField";
 import {CurrencyInCentsField} from "../../shared/fields/CurrencyInCents";
+import {UserWithImageField} from "./UserReferenceField";
 
 
 // Filters for the user list view
@@ -48,8 +48,7 @@ export const UserList = (props: any) => (
     >
         <Datagrid>
             <NumberField source="id"/>
-            <TextField source="firstname"/>
-            <TextField source="lastname"/>
+            <UserWithImageField label="Name" sortBy="name"/>
             <TimestampField source="creation_date"/>
             <TimestampField source="verification_date"/>
             <CurrencyInCentsField source="credit" sortable={false}/>

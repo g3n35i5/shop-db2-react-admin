@@ -15,12 +15,7 @@ const useStyles = makeStyles(theme => ({
 
 export const UserWithImageField = props => {
     const classes = useStyles();
-    let label: string;
-    if (props.record.firstname) {
-        label = `${props.record.firstname} ${props.record.lastname}`;
-    } else {
-        label = `${props.record.lastname}`;
-    }
+    let label: string = props.record.fullname;
     return (
         <div className={classes.root}>
             <ImageField alt={label} src={getImageURL(props.record)} fallback={<Account/>}/>
