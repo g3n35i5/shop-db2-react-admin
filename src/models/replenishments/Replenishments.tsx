@@ -11,8 +11,9 @@ export interface Replenishment {
 
 export interface ReplenishmentCollection {
     id?: number;
-    timestamp: string;
-    comment: string;
+    timestamp: string|null;
+    comment: string|null;
+    seller_id: number|null;
     replenishments: Replenishment[];
 }
 

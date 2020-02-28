@@ -23,6 +23,7 @@ import {DateTimeInput} from 'react-admin-date-inputs';
 import {Box, Paper, Typography} from '@material-ui/core';
 import {ProductAutoComplete} from "../../shared/fields/ProductAutoComplete";
 import {Replenishment, ReplenishmentCollection} from "./Replenishments";
+import {UserAutoComplete} from "../../shared/fields/UserAutoComplete";
 
 // Styles for all components
 const useStyles = makeStyles({
@@ -38,11 +39,12 @@ const useStyles = makeStyles({
 const isValidCollection = (data: any | null) => {
     const isEmpty = !data;
     const hasNoComment = !data.hasOwnProperty('comment') || data.comment === null || data.comment === "";
+    const hasNoSeller = !data.hasOwnProperty('seller_id') || data.seller_id === null || data.seller_id === "";
     const hasNoTimestamp = !data.hasOwnProperty('timestamp') || data.timestamp === null || data.timestamp === "";
     const hasNoReplenishments = (!data.hasOwnProperty('replenishments') ||
         (Array.isArray(data.replenishments) && data.replenishments.length === 0));
 
-    return isEmpty || hasNoComment || hasNoTimestamp || hasNoReplenishments;
+    return isEmpty || hasNoComment || hasNoSeller || hasNoTimestamp || hasNoReplenishments;
 };
 
 
@@ -58,6 +60,7 @@ const CreateReplenishmentCollectionButton = ({state, ...props}) => {
         let collection: ReplenishmentCollection = {
             comment: state.comment,
             timestamp: state.timestamp,
+            seller_id: state.seller_id,
             replenishments: state.replenishments.map(r => parseReplenishment(r))
         };
 
@@ -103,8 +106,9 @@ const parseReplenishment = (row: any): Replenishment => {
 const CreatePanel = ({record, ...rest}) => {
     // Initial state: empty replenishmentcollection
     const [state, setState] = useState<ReplenishmentCollection>({
-        timestamp: "",
-        comment: "",
+        timestamp: null,
+        comment: null,
+        seller_id: null,
         replenishments: []
     });
 
@@ -321,6 +325,11 @@ const ReplenishmentCollectionDetails = ({state, setState, ...rest}) => {
         ...prevState, comment: event.target.value
     })));
 
+    // Each time the value of the UserInput (Seller) changes, the state gets updated
+    const handleSellerChange = (seller_id => setState(prevState => ({
+        ...prevState, seller_id: seller_id
+    })));
+
     // Each time the value of the DateTimeInput (Timestamp) changes, the state gets updated
     const handleTimestampChange = (timestamp => setState(prevState => ({
         ...prevState, timestamp: timestamp
@@ -339,6 +348,7 @@ const ReplenishmentCollectionDetails = ({state, setState, ...rest}) => {
                             source="comment"
                             validate={validateComment}
                             fullWidth/>
+                        <UserAutoComplete fullWidth source="seller_id" onChange={handleSellerChange}/>
                         <DateTimeInput
                             source="timestamp"
                             label="Timestamp"

@@ -310,7 +310,21 @@ const ReplenishmentCollectionDetails = ({state, setState, ...rest}) => {
                 return (
                     <form>
                         <Typography variant="h6" gutterBottom>Information</Typography>
-                        <UserReferenceField {...rest} record={state?.collection} source="admin_id"/>
+                        {/*Information about the administrator*/}
+                        <Box pb={2} display="flex" flexWrap="nowrap" alignItems="center">
+                            <Box css={{ minWidth: 120 }}>Administrator</Box>
+                            <Box>
+                                <UserReferenceField {...rest} record={state?.collection} source="admin_id"/>
+                            </Box>
+                        </Box>
+                        {/*Information about the seller*/}
+                        <Box pb={2}  display="flex" flexWrap="nowrap" alignItems="center">
+                            <Box css={{ minWidth: 120 }}>Seller</Box>
+                            <Box>
+                                <UserReferenceField {...rest} record={state?.collection} source="seller_id"/>
+                            </Box>
+                        </Box>
+
                         <TextInput
                             onChange={handleCommentChange}
                             source="comment"
