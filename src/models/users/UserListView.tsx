@@ -47,7 +47,7 @@ export const UserList = (props: any) => (
     >
         <Datagrid>
             <NumberField source="id"/>
-            <UserWithImageField label="Name" sortBy="name"/>
+            <UserWithImageField label="Name" sortBy="fullname"/>
             <TimestampField source="creation_date"/>
             <TimestampField source="verification_date"/>
             <CurrencyInCentsField source="credit"/>
