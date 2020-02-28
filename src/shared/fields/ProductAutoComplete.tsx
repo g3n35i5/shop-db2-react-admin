@@ -23,6 +23,11 @@ export const ProductAutoComplete = (props) => {
     if (error) return <Error error="Error in ProductAutoComplete"/>;
 
     return (
-        <AutocompleteInput {...props} source="product_id" choices={products} validate={required()} optionText="name"/>
+        <AutocompleteInput {...props} source="product_id" choices={products} optionText="name"/>
     )
 };
+
+ProductAutoComplete.defaultProps = {
+    source: "product_id"
+};
+
