@@ -10,7 +10,7 @@ import customDataProvider from './DataProvider';
 import {deepPurple, lime} from '@material-ui/core/colors';
 // Resource imports
 import {UserCreate, UserEdit, UserList} from './models/users/User';
-import {PurchaseCreate, PurchaseList} from './models/purchases/Purchase';
+import {PurchaseCreate, PurchaseEdit, PurchaseList} from './models/purchases/Purchase';
 import {ProductCreate, ProductEdit, ProductList} from './models/products/Product';
 import {TagCreate, TagEdit, TagList} from './models/tags/Tag';
 import {RankCreate, RankEdit, RankList} from './models/ranks/Rank';
@@ -39,7 +39,7 @@ const App = () => (
         logoutButton={LogoutButton}>
         {/*Resources*/}
         <Resource name="users" list={UserList} create={UserCreate} edit={UserEdit} icon={AccountGroup}/>
-        <Resource name="purchases" list={PurchaseList} create={PurchaseCreate} icon={Cart}/>
+        <Resource name="purchases" list={PurchaseList} create={PurchaseCreate} edit={PurchaseEdit} icon={Cart}/>
         <Resource name="products" list={ProductList} create={ProductCreate} edit={ProductEdit} icon={FoodApple}/>
         <Resource name="deposits" list={DepositList} create={DepositCreate} icon={CurrencyUsd}/>
         <Resource name="tags" list={TagList} create={TagCreate} edit={TagEdit} icon={Tag}/>
