@@ -31,7 +31,8 @@ export const PurchaseList = (props: any) => (
     >
         <Datagrid rowClick="edit">
             <NumberField source="id"/>
-            <UserReferenceField/>
+            <UserReferenceField source="user_id"/>
+            <UserReferenceField source="admin_id" label="Admin"/>
             <TimestampField source="timestamp"/>
             <ProductReferenceField/>
             <NumberField source="amount"/>
