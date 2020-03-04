@@ -10,6 +10,7 @@ import {
 } from "./DashboardValueCard";
 
 import {DashboardPurchasesChart} from "./DashboardPurchaseChart";
+import {DashboardBalanceChart} from "./DashboardBalanceChart";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -54,6 +55,17 @@ const Dashboard = () => {
         }));
     }, [dataProvider]);
 
+    const fetchReplenishments = useCallback(async () => {
+        const params = {filter: {revoked: false}};
+        const {data: replenishments} = await dataProvider.getList('replenishments', params);
+
+        setState(state => ({
+            ...state,
+            replenishments: replenishments
+
+        }));
+    }, [dataProvider]);
+
     const fetchProducts = useCallback(async () => {
         const {data: allProducts} = await dataProvider.getList('products', {});
 
@@ -68,6 +80,7 @@ const Dashboard = () => {
         fetchUsers();
         fetchPurchases();
         fetchProducts();
+        fetchReplenishments();
     }, [version]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const classes = useStyles();
@@ -88,8 +101,11 @@ const Dashboard = () => {
                 <Grid item xl={3} md={6} sm={12}>
                     <NumberOfPurchasesCard value={state.numberOfPurchases}/>
                 </Grid>
-                <Grid item xl={12} md={12}>
+                <Grid item xl={3} md={6}>
                     <DashboardPurchasesChart purchases={state.allPurchases}/>
+                </Grid>
+                <Grid item xl={3} md={6}>
+                    <DashboardBalanceChart purchases={state.allPurchases} replenishments={state.replenishments}/>
                 </Grid>
             </Grid>
         </div>
