@@ -28,18 +28,12 @@ const ProductListFilter = (props: any) => (
     </Filter>
 );
 
-
-// Mark all products that are inactive with a darker row background
-const productRowStyle = (record, index) => ({
-    backgroundColor: record.active ? '' : '#212121',
-});
-
 export const ProductList = (props: any) => (
     <List
         {...props}
         filters={<ProductListFilter/>}
         bulkActionButtons={false}>
-        <Datagrid rowStyle={productRowStyle} rowClick="edit">
+        <Datagrid rowClick="edit">
             <NumberField source="id"/>
             <ProductWithImageField label="Name" sortBy="name"/>
             <CurrencyInCentsField source="price"/>
