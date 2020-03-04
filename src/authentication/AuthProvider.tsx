@@ -1,5 +1,5 @@
 import {AuthProvider} from 'ra-core';
-import {Error} from 'react-admin';
+import {Error, useNotify} from 'react-admin';
 import decodeJwt from 'jwt-decode';
 import {User} from "../models/users/UserInterface";
 import {environment} from "../environments/environment";
@@ -42,13 +42,13 @@ const authProvider: AuthProvider = {
     checkAuth: () => {
         const token = localStorage.getItem('token');
         if (!token) {
-            return Promise.reject();
+            return Promise.reject('No token found');
         }
         const decodedToken: Token = decodeJwt(token);
         if (decodedToken) {
             // Check expiration
             if (decodedToken.exp < new Date().getTime() / 1000) {
-                return Promise.reject();
+                return Promise.reject('Token is expired');
             }
             return Promise.resolve();
         }
