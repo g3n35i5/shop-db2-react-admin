@@ -71,8 +71,12 @@ export const DashboardPurchasesChart = (props) => {
             data.push({
                 name: hour,
                 purchases: purchases.filter((purchase: Purchase) => {
-                    let date = new Date(purchase.timestamp);
-                    return date.getHours() === hour;
+                    if (purchase.timestamp) {
+                        let date = new Date(purchase.timestamp);
+                        return date.getHours() === hour;
+                    }
+                    return false;
+
                 }).length
             });
         }
