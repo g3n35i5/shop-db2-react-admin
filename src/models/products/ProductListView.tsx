@@ -44,8 +44,7 @@ export const ProductList = (props: any) => (
             <ProductWithImageField label="Name" sortBy="name"/>
             <CurrencyInCentsField source="price"/>
             <TimestampField source="creation_date"/>
-            <ProductBalance/>
-            <TextField source="barcode"/>
+            <ProductBalance label="Balance"/>
             <BooleanField source="active"/>
             <BooleanField source="countable"/>
             <BooleanField source="revocable"/>
