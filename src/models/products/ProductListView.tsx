@@ -15,6 +15,7 @@ import {
 import {CurrencyInCentsField} from "../../shared/fields/CurrencyInCents";
 import TimestampField from "../../shared/fields/TimestampField";
 import {ProductWithImageField} from "./ProductReferenceField";
+import {ProductBalance} from "./ProductBalance";
 
 
 // Filters for the purchase list view
@@ -43,6 +44,7 @@ export const ProductList = (props: any) => (
             <ProductWithImageField label="Name" sortBy="name"/>
             <CurrencyInCentsField source="price"/>
             <TimestampField source="creation_date"/>
+            <ProductBalance/>
             <TextField source="barcode"/>
             <BooleanField source="active"/>
             <BooleanField source="countable"/>
