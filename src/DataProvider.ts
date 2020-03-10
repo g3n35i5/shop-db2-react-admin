@@ -64,7 +64,7 @@ const customDataProvider = {
             const imageData = params_to_patch['imagename'];
             return convertFileToBase64(imageData).then((converted) => {
                 params_to_patch['imagename'] = {
-                    filename: imageData.title,
+                    filename: imageData.name,
                     value: converted
                 };
                 return httpClient(`${environment.apiURL}/${resource}/${params.id}`, {
@@ -92,14 +92,12 @@ export const getImageURL = (item: any): string | undefined => {
 };
 
 /**
- * Convert a `File` object returned by the upload input into a base 64 string.
- * That's not the most optimized way to store images in production, but it's
- * enough to illustrate the idea of data provider decoration.
+ * Convert a `Blob` object returned by the upload input into a base 64 string.
  */
 const convertFileToBase64 = (file) => {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
-        reader.readAsDataURL(file.rawFile);
+        reader.readAsDataURL(file);
 
         reader.onload = () => resolve(reader.result);
         reader.onerror = reject;

@@ -2,8 +2,6 @@ import React from 'react';
 import {
     BooleanInput,
     Edit,
-    ImageField,
-    ImageInput,
     maxLength,
     minLength,
     PasswordInput,
@@ -13,14 +11,8 @@ import {
     SimpleForm,
     TextInput
 } from 'react-admin';
-import {PreviewImage} from "../../shared/Image";
-import {makeStyles} from "@material-ui/core/styles";
+import {EditableImage} from "../../shared/fields/EditableImageField";
 
-const useStyles = makeStyles(theme => ({
-    imageInput: {
-        maxWidth: '256px'
-    }
-}));
 
 const customPasswordValidator = (value, allValues) => {
     if (value && allValues.password_repeat) {
@@ -46,13 +38,9 @@ const validatePassword = [minLength(6), customPasswordValidator];
 const validateRepeatPassword = [minLength(6), customRepeatPasswordValidator];
 
 const UserEditForm = ({record, ...props}) => {
-    const classes = useStyles();
     return (
         <SimpleForm record={record} {...props}>
-            <PreviewImage record={record} {...props} label="Current image"/>
-            <ImageInput className={classes.imageInput} maxSize={4000000} source="imagename" label="New image" accept="image/*">
-                <ImageField source="src" title="title"/>
-            </ImageInput>
+            <EditableImage record={record} source="imagename" {...props} label="User image (Use the upload button to edit)"/>
             <TextInput source="firstname" validate={validateFirstName}/>
             <TextInput source="lastname" validate={validateLastName}/>
             <ReferenceInput source="rank_id" reference="ranks">

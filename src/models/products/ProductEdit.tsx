@@ -2,32 +2,21 @@ import React from 'react';
 import {
     BooleanInput,
     Edit,
-    ImageField,
-    ImageInput, number, NumberInput,
+    number,
+    NumberInput,
     ReferenceArrayInput,
     required,
     SelectArrayInput,
     SimpleForm,
     TextInput
 } from 'react-admin';
+import {EditableImage} from "../../shared/fields/EditableImageField";
 
-import {PreviewImage} from "../../shared/Image";
-import {makeStyles} from "@material-ui/core/styles";
-
-const useStyles = makeStyles(theme => ({
-    imageInput: {
-        maxWidth: '256px'
-    }
-}));
 
 const ProductEditForm = ({record, ...props}) => {
-    const classes = useStyles();
     return (
         <SimpleForm record={record} {...props}>
-            <PreviewImage record={record} {...props} label="Current image"/>
-            <ImageInput className={classes.imageInput} maxSize={4000000} source="imagename" label="New image" accept="image/*">
-                <ImageField source="src" title="title"/>
-            </ImageInput>
+            <EditableImage record={record} source="imagename" {...props} label="Product image (Use the upload button to edit)"/>
             <TextInput source="name" validate={[required()]}/>
             <NumberInput label="Price in cents" source="price" validate={[number(), required()]}/>
             <TextInput source="barcode"/>
