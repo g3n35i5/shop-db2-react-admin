@@ -101,12 +101,7 @@ export const EditableImage = ({record, source, ...props}) => {
      * Gets called each time the crop's changes are done (crop window released)
      */
     const onCropComplete = (crop) => {
-        if (typeof state.imageRef !== "undefined") {
-            makeClientCrop(state.imageRef, crop);
-        } else {
-            setTimeout(onCropComplete, 10);
-        }
-
+        makeClientCrop(state.imageRef, crop);
     };
 
     /**
@@ -231,7 +226,7 @@ const ImagePreview = (props) => {
     let original = getImageURL(props.record);
     let src = cropped ? cropped : original;
     if (src) {
-        return <img src={src} alt="Image" className={classes.imageContainerImage}/>;
+        return <img src={src} alt="Preview" className={classes.imageContainerImage}/>;
     }
     return <Typography>No image</Typography>;
 };
