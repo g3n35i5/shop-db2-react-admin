@@ -39,10 +39,21 @@ const useStyles = makeStyles({
 
 // This helper function returns whether the state is a valid replenishmentcollection.
 const isValidCollection = (data: any | null) => {
+    // Check if collection is empty
     const isEmpty = !data;
-    const hasNoComment = !data.hasOwnProperty('comment') || data.comment === null || data.comment === "";
-    const hasNoSeller = !data.hasOwnProperty('seller_id') || data.seller_id === null || data.seller_id === "";
-    const hasNoTimestamp = !data.hasOwnProperty('timestamp') || data.timestamp === null || data.timestamp === "";
+
+    // Lambda check for empty
+    let _checkForEmpty = (_data, _field) => {
+        return !_data.hasOwnProperty(_field) || _data._field === null || _data._field === ""
+    };
+
+    // Check if collection has a comment
+    const hasNoComment = _checkForEmpty(data, "comment");
+    // Check if collection has a seller
+    const hasNoSeller = _checkForEmpty(data, "seller_id");
+    // Check if collection has a timestamp
+    const hasNoTimestamp = _checkForEmpty(data, "timestamp");
+    // Check if collection has replenishments
     const hasNoReplenishments = (!data.hasOwnProperty('replenishments') ||
         (Array.isArray(data.replenishments) && data.replenishments.length === 0));
 
@@ -303,8 +314,6 @@ const CreatePanel = ({record, ...rest}) => {
 
 // Left side component: Just a small ProductOverview over the replenishmentcollection
 const ReplenishmentCollectionDetails = ({state, setState, ...rest}) => {
-    const classes = useStyles();
-
     // Calculates the sum of all replenishments
     const getReplenishmentSum = (): number => {
         if (state.replenishments && state.replenishments.length > 0) {
