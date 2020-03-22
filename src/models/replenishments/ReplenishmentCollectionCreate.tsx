@@ -12,11 +12,13 @@ import {
     useNotify,
     useRedirect
 } from 'react-admin';
-import MaterialTable, {Column, MTableToolbar} from 'material-table';
+import MaterialTable, {Column} from 'material-table';
+import {tableIcons} from "../../shared/MaterialTableIcons";
+import {MaterialTableToolbar} from "../../shared/MaterialTableToolbar";
 import {makeStyles} from "@material-ui/core/styles";
 import ProductReferenceField from "../products/ProductReferenceField";
 import {CurrencyInCentsField} from "../../shared/fields/CurrencyInCents";
-import {tableIcons} from "../../shared/MaterialTableIcons";
+
 import {Form} from 'react-final-form';
 import {DateTimeInput} from 'react-admin-date-inputs';
 
@@ -262,11 +264,7 @@ const CreatePanel = ({record, ...rest}) => {
     // Override default material-table components
     const components = {
         Container: props => <Paper {...props} elevation={0}/>, // No "paper" background (elevation) for the table
-        Toolbar: props => (
-            <div>
-                <MTableToolbar root={{foobar: false}} disableGutters={true} {...props} />
-            </div>
-        )
+        Toolbar: props => <MaterialTableToolbar {...props} />
     };
 
     return (
@@ -303,7 +301,7 @@ const CreatePanel = ({record, ...rest}) => {
     )
 };
 
-// Left side component: Just a small overview over the replenishmentcollection
+// Left side component: Just a small ProductOverview over the replenishmentcollection
 const ReplenishmentCollectionDetails = ({state, setState, ...rest}) => {
     const classes = useStyles();
 
