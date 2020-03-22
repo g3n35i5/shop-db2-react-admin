@@ -20,6 +20,13 @@ const dataProvider = simpleRestProvider(environment.apiURL, httpClient);
 // Custom data provider
 const customDataProvider = {
     ...dataProvider,
+    // This method returns a propety of a specific resource, e.g. the theoretical product stock by calling
+    // GET /products/<PRODUCT_ID>/stock
+    getDetails: (resource, params) => {
+        return httpClient(`${environment.apiURL}/${resource}/${params.id}/${params.property}`).then(({ json }) => ({
+            data: json,
+        }))
+    },
     // Overriding the getList method of the simple-rest-data-provider
     // In contrast to the reference implementation, all query parameters are specified here as dictionary
     // and not as arrays or similar.
