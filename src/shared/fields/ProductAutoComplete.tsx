@@ -1,4 +1,4 @@
-import {AutocompleteInput, Error, required, useDataProvider} from "react-admin";
+import {AutocompleteInput, Error, LinearProgress, useDataProvider} from "react-admin";
 import React, {useEffect, useState} from "react";
 
 export const ProductAutoComplete = (props) => {
@@ -21,6 +21,7 @@ export const ProductAutoComplete = (props) => {
     }, [dataProvider]);
 
     if (error) return <Error error="Error in ProductAutoComplete"/>;
+    if (loading) return <LinearProgress/>;
 
     return (
         <AutocompleteInput {...props} source="product_id" choices={products} optionText="name"/>

@@ -1,4 +1,4 @@
-import {AutocompleteInput, Error, useDataProvider} from "react-admin";
+import {AutocompleteInput, Error, LinearProgress, useDataProvider} from "react-admin";
 import React, {useEffect, useState} from "react";
 
 // Custom User auto completion which displays the full name of the user with the "getFullNameOfUser" method.
@@ -25,6 +25,7 @@ export const UserAutoComplete = (props) => {
     }, [dataProvider]);
 
     if (error) return <Error error="Error in UserAutoComplete"/>;
+    if (loading) return <LinearProgress/>;
 
     return (
         <AutocompleteInput {...props} source={props.source} choices={users} optionText={user => user.fullname}/>
