@@ -11,7 +11,7 @@ export const MaterialTableToolbar = props => {
     return (
         <Grid container direction="row">
             <Grid item xs={6}>
-                <h4>{propsCopy.title}</h4>
+                <h4 style={{paddingLeft: '4px'}}>{propsCopy.title}</h4>
             </Grid>
             <Grid item xs={6}>
                 <MTableToolbar {...propsCopy} />
