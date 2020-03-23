@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useRef} from "react";
 import {IconButton, Typography} from "@material-ui/core";
 
 import ReactCrop from 'react-image-crop';
@@ -53,11 +53,12 @@ export const EditableImage = ({record, source, ...props}) => {
     const classes = useStyles();
     const {input: {onChange}} = useField(source);
 
+    // Contains the reference to the original image (objectURL)
+    const imageRef = useRef<HTMLImageElement|null>(null);
+
     const [state, setState] = useState<any>({
         // Contains the new (non-cropped) image
         src: null,
-        // Contains the reference to the original image (objectURL)
-        imageRef: undefined,
         // Contains the reference to the cropped image (objectURL)
         croppedImageUrl: undefined,
         // Contains the actual cropped image blob
@@ -91,17 +92,14 @@ export const EditableImage = ({record, source, ...props}) => {
      * Gets called when the image has been loaded
      */
     const onImageLoaded = image => {
-        setState(prevState => ({
-            ...prevState,
-            imageRef: image
-        }))
+        imageRef.current = image;
     };
 
     /**
      * Gets called each time the crop's changes are done (crop window released)
      */
     const onCropComplete = (crop) => {
-        makeClientCrop(state.imageRef, crop);
+        makeClientCrop(imageRef.current, crop);
     };
 
     /**
@@ -120,7 +118,7 @@ export const EditableImage = ({record, source, ...props}) => {
     const makeClientCrop = async (imageRef, crop) => {
         if (imageRef && crop.width && crop.height) {
             const croppedImageUrl = await getCroppedImg(
-                state.imageRef,
+                imageRef,
                 crop,
                 'newFile.png'
             );
