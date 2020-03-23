@@ -1,25 +1,14 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {useDataProvider, useVersion} from "react-admin";
+import {useDataProvider} from "react-admin";
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
-import {Grid} from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
-import {CurrencyInCentsField} from "../../shared/fields/CurrencyInCents";
+import {Tooltip} from '@material-ui/core';
+import {CentsToEuro, CurrencyInCentsField} from "../../shared/fields/CurrencyInCents";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        root: {
-            flexGrow: 1,
-            width: '300px'
-        },
-        paper: {
-            textAlign: 'center',
-            color: theme.palette.text.secondary,
-        },
-        noPadding: {
-            padding: 0
-        },
         container: {
-            maxWidth: '300px',
+            width: '250px',
             display: 'flex',
             flexWrap: 'nowrap',
             textAlign: 'center',
@@ -56,93 +45,83 @@ const useStyles = makeStyles((theme: Theme) =>
             borderBottomLeftRadius: '0px',
             borderTopRightRadius: '10px',
             borderBottomRightRadius: '10px',
+        },
+        stockBar: {
+            backgroundColor: '#A7AE9C',
+            color: 'black',
+            justifySelf: 'flex-end',
+            overflow: 'hidden',
+            textAlign: 'center'
         }
     }),
 );
 
-const VerticalBar = (props) => {
-    const classes = useStyles();
+export const ProductBalance = (props) => {
 
-    if (props && props.replenishmentSum !== undefined && props.purchaseSum !== undefined) {
-        let sum = props.replenishmentSum + props.purchaseSum;
-        let replenishmentPercentage: string = (props.replenishmentSum * 100 / sum).toString() + '%';
-        let purchasePercentage: string = (props.purchaseSum * 100 / sum).toString() + '%';
-        if (props.replenishmentSum === 0 && props.purchaseSum === 0) {
+    const classes = useStyles();
+    const [state, setState] = useState<any | null>({});
+    const dataProvider = useDataProvider();
+
+    const getTheoreticalProductStock = useCallback(async () => {
+        const params = {id: props.record.id, property: 'stock'};
+        const {data: stock} = await dataProvider.getDetails('products', params);
+
+        setState(state => ({
+            ...state,
+            theoreticalStock: stock > 0 ? stock : 0
+        }));
+    }, [dataProvider, props]);
+    useEffect(() => {
+        getTheoreticalProductStock();
+    }, [getTheoreticalProductStock]);
+
+    if (props && props.record && state && state.theoreticalStock !== undefined) {
+        const replenishmentSum = props.record.replenishment_sum;
+        const purchaseSum = props.record.purchase_sum;
+        const stockSum = state.theoreticalStock * props.record.price;
+        let sum = replenishmentSum + purchaseSum + stockSum;
+        let replenishmentPercentage: string = (replenishmentSum * 100 / sum).toString() + '%';
+        let purchasePercentage: string = (purchaseSum * 100 / sum).toString() + '%';
+        let stockPercentage: string = (stockSum * 100 / sum).toString() + '%';
+        if (replenishmentSum === 0 && purchaseSum === 0) {
             replenishmentPercentage = '50%';
             purchasePercentage = '50%';
         }
+        let replenishmentTooltipTitle = 'Expenses: ' + CentsToEuro(replenishmentSum).toFixed(2) + ' €';
+        let purchaseTooltipTitle = 'Incomes: ' + CentsToEuro(purchaseSum).toFixed(2) + ' €';
+        let stockTooltipTitle = 'Stock: ' + CentsToEuro(stockSum).toFixed(2) + ' €';
 
         return (
-            <div className={classes.root}>
-                <Grid container>
-                    <Grid item xs={12}>
-                        <div className={classes.container}>
-                            <div className={classes.leftBar} style={{width: replenishmentPercentage}}>
-                                <CurrencyInCentsField record={props.replenishmentSum}/>
-                            </div>
-                            <div className={classes.middleLine}>
+            <div className={classes.container}>
+                {/*Bar for the replenishment sum*/}
+                <Tooltip title={replenishmentTooltipTitle}>
+                    <div className={classes.leftBar} style={{width: replenishmentPercentage}}>
+                        <CurrencyInCentsField record={replenishmentSum}/>
+                    </div>
+                </Tooltip>
 
-                            </div>
-                            <div className={classes.rightBar} style={{width: purchasePercentage}}>
-                                <CurrencyInCentsField record={props.purchaseSum}/>
-                            </div>
+                {/*Divider at 50%*/}
+                <div className={classes.middleLine}></div>
+                {/*Bar for the stock sum*/}
+                {
+                    stockSum > 0 &&
+                    <Tooltip title={stockTooltipTitle}>
+                        <div className={classes.stockBar} style={{width: stockPercentage}}>
+                            <CurrencyInCentsField record={stockSum}/>
                         </div>
-                    </Grid>
-                </Grid>
+                    </Tooltip>
+                }
+                {/*Bar for the purchase sum*/}
+                <Tooltip title={purchaseTooltipTitle}>
+                    <div className={classes.rightBar} style={{width: purchasePercentage}}>
+                        <CurrencyInCentsField record={purchaseSum}/>
+                    </div>
+                </Tooltip>
             </div>
         )
     } else {
         return <Skeleton variant="rect" width={300} height={20}/>;
     }
-
-
-};
-
-export const ProductBalance = (props) => {
-    const [state, setState] = useState<any | null>({});
-
-    const version = useVersion();
-    const dataProvider = useDataProvider();
-
-    const fetchReplenishments = useCallback(async () => {
-        const params = {filter: {revoked: false, product_id: props.record.id}};
-        const {data: replenishments} = await dataProvider.getList('replenishments', params);
-        let replenishmentSum: number = 0;
-        if (replenishments && replenishments.length > 0) {
-            replenishmentSum = replenishments.map(r => r.total_price).reduce((a, b) => {
-                return a + b
-            });
-        }
-
-        setState(state => ({
-            ...state,
-            replenishmentSum: replenishmentSum
-        }));
-    }, [dataProvider]);
-
-    const fetchPurchases = useCallback(async () => {
-        const params = {filter: {revoked: false, product_id: props.record.id}};
-        const {data: purchases} = await dataProvider.getList('purchases', params);
-
-        let purchaseSum: number = 0;
-        if (purchases && purchases.length > 0) {
-            purchaseSum = purchases.map(r => r.price).reduce((a, b) => {
-                return a + b
-            });
-        }
-
-        setState(state => ({
-            ...state,
-            purchaseSum: purchaseSum
-        }));
-    }, [dataProvider]);
-
-    useEffect(() => {
-        fetchReplenishments();
-        fetchPurchases();
-    }, [version]);
-
-    return <VerticalBar replenishmentSum={state.replenishmentSum} purchaseSum={state.purchaseSum}/>
 };
 
 

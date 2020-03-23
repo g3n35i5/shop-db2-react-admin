@@ -9,13 +9,13 @@ import {
     NumberField,
     ReferenceArrayField,
     SingleFieldList,
-    TextField,
     TextInput
 } from 'react-admin';
 import {CurrencyInCentsField} from "../../shared/fields/CurrencyInCents";
 import TimestampField from "../../shared/fields/TimestampField";
 import {ProductWithImageField} from "./ProductReferenceField";
 import {ProductBalance} from "./ProductBalance";
+import {ProductStock} from "./ProductStock";
 
 
 // Filters for the purchase list view
@@ -38,7 +38,8 @@ export const ProductList = (props: any) => (
             <ProductWithImageField label="Name" sortBy="name"/>
             <CurrencyInCentsField source="price"/>
             <TimestampField source="creation_date"/>
-            <ProductBalance label="Balance"/>
+            <ProductBalance label="Balance" sortable={false}/>
+            <ProductStock label="Stock" sortable={false}/>
             <BooleanField source="active"/>
             <BooleanField source="countable"/>
             <BooleanField source="revocable"/>
