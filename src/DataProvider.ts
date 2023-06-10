@@ -67,6 +67,10 @@ const customDataProvider = {
             }
         }
 
+        if (params_to_patch.hasOwnProperty('imagename') && params_to_patch['imagename'] === null) {
+            delete params_to_patch['imagename'];
+        }
+
         if ((resource === 'products' || resource === 'users') && params_to_patch.hasOwnProperty('imagename')) {
             const imageData = params_to_patch['imagename'];
             return convertFileToBase64(imageData).then((converted) => {
