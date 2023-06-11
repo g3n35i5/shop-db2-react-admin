@@ -29,4 +29,4 @@ jobs:
           npm ci
       - name: build
         run: |
-          npm run build
+          CI=true npm run build

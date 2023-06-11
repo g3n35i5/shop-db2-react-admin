@@ -12,10 +12,11 @@ export const ProductStock = (props) => {
         const {data: stock} = await dataProvider.getDetails('products', params);
 
         setStock(stock);
-    }, [dataProvider]);
+    }, [dataProvider, props.record.id]);
+
     useEffect(() => {
-        getTheoreticalProductStock();
-    }, []);
+        getTheoreticalProductStock()
+    }, [getTheoreticalProductStock]);
 
     if (stock !== undefined) {
         return stock !== null ? <span>{stock}</span> : <CircleOffOutline/>;

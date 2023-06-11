@@ -2,6 +2,7 @@
 
 .idea
 src/environments/environment.prod.tsx
+.devcontainer
 
 # dependencies
 /node_modules

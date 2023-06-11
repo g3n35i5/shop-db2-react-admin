@@ -93,7 +93,8 @@ const EditReplenishmentCollectionButton = ({state, dataProvider, ...props}) => {
     }, [
         state,
         dataProvider,
-        notify
+        notify,
+        redirect
     ]);
 
     return <SaveButton disabled={saveButtonDisabled(state)} {...props} handleSubmitWithRedirect={handleClick}/>;
