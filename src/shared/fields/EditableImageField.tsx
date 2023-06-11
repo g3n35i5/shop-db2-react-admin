@@ -157,7 +157,7 @@ export const EditableImage = ({record, source, ...props}) => {
 
         // Return promise with the new (cropped) image. For this, a new object URL gets created.
         // Furthermore, the image blob gets stored in the state object.
-        return new Promise((resolve, reject) => {
+        return new Promise<void>((resolve, reject) => {
             canvas.toBlob(blob => {
                 if (!blob) {
                     console.error('Canvas is empty');

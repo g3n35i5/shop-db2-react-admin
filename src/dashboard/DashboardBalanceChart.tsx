@@ -51,7 +51,7 @@ const DashboardBarChart = ({data}) => {
     return (
         <ResponsiveContainer>
             <BarChart data={data} margin={{left: 20, bottom: 30, top: 25}}>
-                <XAxis dataKey="title" tickSize/>
+                <XAxis dataKey="title"/>
                 <YAxis unit=" €"/>
                 <Tooltip/>
                 <Bar dataKey="value">

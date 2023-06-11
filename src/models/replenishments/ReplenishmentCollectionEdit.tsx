@@ -150,7 +150,7 @@ const EditPanel = ({record, ...rest}) => {
     const editable = {
         // This method gets called each time a row entry gets updated
         onRowUpdate: (newData, oldData) =>
-            new Promise((resolve, reject) => {
+            new Promise<void>((resolve, reject) => {
                 const replenishment = parseReplenishment(newData);
                 if (replenishment.amount === 0) {
                     notify('The amount must not be zero', 'warning');

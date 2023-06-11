@@ -106,7 +106,7 @@ export const getImageURL = (item: any): string | undefined => {
  * Convert a `Blob` object returned by the upload input into a base 64 string.
  */
 const convertFileToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
+    return new Promise<string | ArrayBuffer | null>((resolve, reject) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
 
