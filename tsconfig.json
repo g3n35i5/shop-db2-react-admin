@@ -20,7 +20,8 @@
     "jsx": "react",
     "noImplicitAny": false,
     "strictFunctionTypes": false,
-    "checkJs": false
+    "checkJs": false,
+    "noFallthroughCasesInSwitch": true
   },
   "include": [
     "src"

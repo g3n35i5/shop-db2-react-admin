@@ -132,7 +132,7 @@ const CreatePanel = ({record, ...rest}) => {
     const editable = {
         // This method gets called each time a row entry gets added
         onRowAdd: newData =>
-            new Promise((resolve, reject) => {
+            new Promise<void>((resolve, reject) => {
                 // The product must only appear once in the list of replenishments.
                 // Moreover, the amount must not be zero.
                 const replenishment = parseReplenishment(newData);
@@ -152,7 +152,7 @@ const CreatePanel = ({record, ...rest}) => {
             }),
         // This method gets called each time a row entry gets updated
         onRowUpdate: (newData, oldData) =>
-            new Promise((resolve, reject) => {
+            new Promise<void>((resolve, reject) => {
                 // Substitute the entry if it exist. Otherwise, throw a warning
                 let data = state.replenishments;
                 const index = data.indexOf(oldData);
@@ -190,7 +190,7 @@ const CreatePanel = ({record, ...rest}) => {
             }),
         // This method gets called each time a row entry gets deleted
         onRowDelete: oldData =>
-            new Promise((resolve, reject) => {
+            new Promise<void>((resolve, reject) => {
                 // Delete the entry if it exist. Otherwise, throw a warning
                 let data = state.replenishments;
                 const index = data.indexOf(oldData);

@@ -1,5 +1,5 @@
 import * as React from "react";
-import {BooleanInput, Datagrid, Filter, List, NumberField, ReferenceInput, TextField, TextInput} from "react-admin";
+import {BooleanInput, Datagrid, Filter, List, NumberField, TextField, TextInput} from "react-admin";
 
 import UserReferenceField from "../users/UserReferenceField";
 import TimestampField from "../../shared/fields/TimestampField";
